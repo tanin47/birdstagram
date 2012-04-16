@@ -99,8 +99,8 @@
 						<array class="NSMutableArray" key="NSSubviews">
 							<object class="IBUIImageView" id="457704929">
 								<reference key="NSNextResponder" ref="587740786"/>
-								<int key="NSvFlags">274</int>
-								<string key="NSFrame">{{44, 67}, {100, 70}}</string>
+								<int key="NSvFlags">301</int>
+								<string key="NSFrame">{{41, 48}, {100, 70}}</string>
 								<reference key="NSSuperview" ref="587740786"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="275900254"/>
@@ -108,7 +108,7 @@
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 							</object>
 						</array>
-						<string key="NSFrameSize">{320, 400}</string>
+						<string key="NSFrame">{{6, 20}, {308, 308}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="457704929"/>
@@ -267,8 +267,6 @@
 					<dictionary class="NSMutableDictionary" key="actions">
 						<string key="cancel:">id</string>
 						<string key="confirm:">id</string>
-						<string key="moved:withEvent:">id</string>
-						<string key="touched:withEvent:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
 						<object class="IBActionInfo" key="cancel:">
@@ -277,14 +275,6 @@
 						</object>
 						<object class="IBActionInfo" key="confirm:">
 							<string key="name">confirm:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="moved:withEvent:">
-							<string key="name">moved:withEvent:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="touched:withEvent:">
-							<string key="name">touched:withEvent:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 					</dictionary>

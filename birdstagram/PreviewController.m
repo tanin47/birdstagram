@@ -33,6 +33,7 @@ static PreviewController *sharedInstance = nil;
 
 @synthesize originalBird;
 @synthesize originalBirdSize;
+@synthesize instagram;
 
 @synthesize x;
 @synthesize y;
@@ -95,6 +96,8 @@ static PreviewController *sharedInstance = nil;
 - (void) dealloc
 {
     self.photo = nil;
+    self.instagram = nil;
+    self.originalBird = nil;
     
     [super dealloc];
 }
@@ -132,8 +135,8 @@ static PreviewController *sharedInstance = nil;
     NSLog(@"%f %f", size.width, size.height);
     
     
-    int maxWidth = 320;
-    int maxHeight = 400;
+    int maxWidth = self.previewLayer.frame.size.width;
+    int maxHeight = self.previewLayer.frame.size.height;
     
     int newHeight = maxHeight;
     int newWidth = size.width * newHeight / size.height;
@@ -143,7 +146,12 @@ static PreviewController *sharedInstance = nil;
         newHeight = size.height * newWidth / size.width;
     }
     
-    self.previewLayer.frame = CGRectMake((320 - newWidth) / 2, (400 - newHeight) / 2, newWidth, newHeight);
+//    self.previewLayer.frame = CGRectMake((320 - newWidth) / 2, (400 - newHeight) / 2, newWidth, newHeight);
+    
+    NSLog(@"%f %f %f %f", self.previewLayer.frame.origin.x,
+                            self.previewLayer.frame.origin.y,
+                            self.previewLayer.frame.size.width,
+                            self.previewLayer.frame.size.height);
     
     self.previewLayer.backgroundColor = [UIColor colorWithPatternImage:[ImageHandler imageWithImage:self.photo scaledToSize:CGSizeMake(newWidth, newHeight)]]; 
 }
@@ -160,7 +168,7 @@ static PreviewController *sharedInstance = nil;
 
 - (IBAction) confirm: (id) sender
 {
-    [DSBezelActivityView newActivityViewForView:self.view.window withLabel:@"Saving the photo..."];
+    [DSBezelActivityView newActivityViewForView:self.view.window withLabel:@"Contacting Instagram..."];
     
     dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         NSLog(@"%f %f %f %f %f %f", self.birdLayer.transform.a,
@@ -245,23 +253,20 @@ static PreviewController *sharedInstance = nil;
 {
     NSData* imageData = UIImageJPEGRepresentation(image, 1.0);
     NSString *documentdir = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-    NSString *imagePath = [documentdir stringByAppendingPathComponent:@"shared123.ig"];
+    NSString *imagePath = [documentdir stringByAppendingPathComponent:@"shared.igo"];
     [imageData writeToFile:imagePath atomically:NO];
     
-    NSLog(@"Done");
     
     dispatch_async( dispatch_get_main_queue(), ^{
         
         [DSBezelActivityView removeViewAnimated:YES];
         
-        UIDocumentInteractionController *instagram = [UIDocumentInteractionController interactionControllerWithURL: [NSURL fileURLWithPath:imagePath]];
+        self.instagram = [UIDocumentInteractionController interactionControllerWithURL: [NSURL fileURLWithPath:imagePath]];
         
         
-        instagram.UTI = @"com.instagram.gram";
-        instagram.delegate = self;
-        [instagram presentPreviewAnimated:YES];
-        
-        NSLog(@"Done");
+        self.instagram.UTI = @"com.instagram.exclusivegram";
+        self.instagram.delegate = self;
+        [self.instagram presentOpenInMenuFromRect:self.view.frame inView:self.view animated:YES];
         
     });
 }
@@ -272,6 +277,12 @@ static PreviewController *sharedInstance = nil;
 
 - (UIViewController *)documentInteractionControllerViewControllerForPreview:(UIDocumentInteractionController *)controller {
     return self;
+}
+
+
+- (void) documentInteractionController: (UIDocumentInteractionController *) controller didEndSendingToApplication: (NSString *) application
+{
+    [self.navigationController popViewControllerAnimated:NO];
 }
 
 

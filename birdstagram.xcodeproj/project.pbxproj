@@ -25,6 +25,12 @@
 		F246D58A153BC12300587988 /* UIBirdView.m in Sources */ = {isa = PBXBuildFile; fileRef = F246D589153BC12200587988 /* UIBirdView.m */; };
 		F246D58D153BC72600587988 /* bird.png in Resources */ = {isa = PBXBuildFile; fileRef = F246D58C153BC72600587988 /* bird.png */; };
 		F246D58F153BCD6D00587988 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F246D58E153BCD6D00587988 /* QuartzCore.framework */; };
+		F2C11904153C128B00552A66 /* CameraController.m in Sources */ = {isa = PBXBuildFile; fileRef = F2C11902153C128B00552A66 /* CameraController.m */; };
+		F2C11905153C128B00552A66 /* CameraController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F2C11903153C128B00552A66 /* CameraController.xib */; };
+		F2C1190C153C13F300552A66 /* GLCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = F2C1190B153C13F300552A66 /* GLCamera.m */; };
+		F2C1190F153C153200552A66 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2C1190D153C153100552A66 /* AVFoundation.framework */; };
+		F2C11910153C153200552A66 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2C1190E153C153100552A66 /* CoreMedia.framework */; };
+		F2C11914153C157A00552A66 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2C11913153C157A00552A66 /* CoreVideo.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +63,14 @@
 		F246D589153BC12200587988 /* UIBirdView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIBirdView.m; sourceTree = "<group>"; };
 		F246D58C153BC72600587988 /* bird.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bird.png; sourceTree = "<group>"; };
 		F246D58E153BCD6D00587988 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		F2C11901153C128B00552A66 /* CameraController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraController.h; sourceTree = "<group>"; };
+		F2C11902153C128B00552A66 /* CameraController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraController.m; sourceTree = "<group>"; };
+		F2C11903153C128B00552A66 /* CameraController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CameraController.xib; sourceTree = "<group>"; };
+		F2C1190A153C13F300552A66 /* GLCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLCamera.h; sourceTree = "<group>"; };
+		F2C1190B153C13F300552A66 /* GLCamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLCamera.m; sourceTree = "<group>"; };
+		F2C1190D153C153100552A66 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		F2C1190E153C153100552A66 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		F2C11913153C157A00552A66 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +78,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F2C11914153C157A00552A66 /* CoreVideo.framework in Frameworks */,
+				F2C1190F153C153200552A66 /* AVFoundation.framework in Frameworks */,
+				F2C11910153C153200552A66 /* CoreMedia.framework in Frameworks */,
 				F246D58F153BCD6D00587988 /* QuartzCore.framework in Frameworks */,
 				F246D549153B998C00587988 /* UIKit.framework in Frameworks */,
 				F246D54B153B998C00587988 /* Foundation.framework in Frameworks */,
@@ -94,6 +111,9 @@
 		F246D547153B998C00587988 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F2C11913153C157A00552A66 /* CoreVideo.framework */,
+				F2C1190D153C153100552A66 /* AVFoundation.framework */,
+				F2C1190E153C153100552A66 /* CoreMedia.framework */,
 				F246D58E153BCD6D00587988 /* QuartzCore.framework */,
 				F246D548153B998C00587988 /* UIKit.framework */,
 				F246D54A153B998C00587988 /* Foundation.framework */,
@@ -105,6 +125,8 @@
 		F246D54E153B998C00587988 /* birdstagram */ = {
 			isa = PBXGroup;
 			children = (
+				F2C1190A153C13F300552A66 /* GLCamera.h */,
+				F2C1190B153C13F300552A66 /* GLCamera.m */,
 				F246D58B153BC71300587988 /* Birds */,
 				F246D579153B9BB300587988 /* Core */,
 				F246D557153B998C00587988 /* AppDelegate.h */,
@@ -122,6 +144,9 @@
 				F246D586153BB01600587988 /* UIPreview.m */,
 				F246D588153BC12100587988 /* UIBirdView.h */,
 				F246D589153BC12200587988 /* UIBirdView.m */,
+				F2C11901153C128B00552A66 /* CameraController.h */,
+				F2C11902153C128B00552A66 /* CameraController.m */,
+				F2C11903153C128B00552A66 /* CameraController.xib */,
 				F246D54F153B998C00587988 /* Supporting Files */,
 			);
 			path = birdstagram;
@@ -212,6 +237,7 @@
 				F246D578153B9B4A00587988 /* MenuController.xib in Resources */,
 				F246D581153B9DC000587988 /* PreviewController.xib in Resources */,
 				F246D58D153BC72600587988 /* bird.png in Resources */,
+				F2C11905153C128B00552A66 /* CameraController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -231,6 +257,8 @@
 				F246D584153B9FB700587988 /* DSActivityView.m in Sources */,
 				F246D587153BB01700587988 /* UIPreview.m in Sources */,
 				F246D58A153BC12300587988 /* UIBirdView.m in Sources */,
+				F2C11904153C128B00552A66 /* CameraController.m in Sources */,
+				F2C1190C153C13F300552A66 /* GLCamera.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -336,6 +364,7 @@
 				F246D55E153B998C00587988 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

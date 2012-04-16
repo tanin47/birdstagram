@@ -1,19 +1,14 @@
 //
-//  MenuController.m
+//  CameraController.m
 //  birdstagram
 //
 //  Created by Apirom Na Nakorn on 4/16/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "MenuController.h"
-#import "PreviewController.h"
 #import "CameraController.h"
 
-@implementation MenuController
-
-@synthesize imageHandler;
-
+@implementation CameraController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -38,10 +33,6 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
-    if (imageHandler == nil) 
-        imageHandler = [[ImageHandler alloc] initWithSelector:@selector(previewPhoto) 
-                                                    AndTarget:self];
 }
 
 - (void)viewDidUnload
@@ -55,25 +46,6 @@
 {
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-
-
-- (IBAction) getPhoto: (id) sender
-{
-    //[self.navigationController pushViewController:[CameraController singleton] animated:NO];
-    [imageHandler openActionSheet];
-}
-
-
--(void) previewPhoto
-{
-    if (imageHandler.image == nil) return;
-    
-    [PreviewController singleton].photo = [ImageHandler scaleToInstagramWithImage:imageHandler.image];
-    [imageHandler clear];
-    [self.navigationController pushViewController:[PreviewController singleton] animated:NO];
-    
-    
 }
 
 @end

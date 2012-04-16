@@ -16,6 +16,7 @@
 
 @property (nonatomic, retain) UIImage *originalBird;
 @property CGSize originalBirdSize;
+@property (nonatomic, retain) UIDocumentInteractionController *instagram;
 
 @property CGFloat x;
 @property CGFloat y;
@@ -26,9 +27,6 @@
 
 - (IBAction) confirm: (id) sender;
 - (IBAction) cancel: (id) sender;
-
-- (IBAction) touched:(id) sender withEvent:(UIEvent *) event;
-- (IBAction) moved:(id) sender withEvent:(UIEvent *) event;
 
 - (void) openInstagram: (UIImage *) image;
 

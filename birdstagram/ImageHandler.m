@@ -98,8 +98,8 @@
 }
 
 
-+ (UIImage*)imageWithImage:(UIImage*)image 
-			  scaledToSize:(CGSize)newSize
++ (UIImage*) imageWithImage: (UIImage *) image 
+			  scaledToSize: (CGSize) newSize
 {
 	//DLog(@"");
 	UIGraphicsBeginImageContext(newSize);
@@ -108,6 +108,34 @@
 	UIGraphicsEndImageContext();
 	
 	return newImage;
+}
+
++ (UIImage*)scaleToInstagramWithImage: (UIImage*) image
+{
+	//DLog(@"");
+	UIGraphicsBeginImageContext(CGSizeMake(612, 612));
+    
+    int x = 0;
+    int y = 0;
+    
+    int newWidth = 612;
+    int newHeight = 612;
+    
+    if (image.size.width > image.size.height) {
+        newWidth = newHeight * image.size.width / image.size.height;
+        x = - (newWidth - 612)/2;
+    } else {
+        newHeight = newWidth * image.size.height / image.size.width;
+        y = - (newHeight - 612)/2;
+    }
+    
+	[image drawInRect:CGRectMake(x, y, newWidth, newHeight)];
+    
+	UIImage* newImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+	UIGraphicsEndImageContext();
+	
+	return newImage; 
 }
 
 

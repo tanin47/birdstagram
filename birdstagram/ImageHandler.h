@@ -20,6 +20,7 @@
 + (UIImage*)imageWithImage:(UIImage*)image 
 			  scaledToSize:(CGSize)newSize;
 
++ (UIImage*)scaleToInstagramWithImage: (UIImage*) image;
 
 - (ImageHandler *) initWithSelector:(SEL)thisMethod AndTarget:(UIViewController *) thisTarget;
 - (void) openActionSheet;

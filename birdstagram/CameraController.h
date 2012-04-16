@@ -7,7 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GLCamera.h"
 
-@interface CameraController : UIViewController
+@interface CameraController : UIViewController<GLCameraDelegate>
+
+
+@property (nonatomic, retain) IBOutlet UIView* previewLayer;
+@property (nonatomic, retain) GLCamera *camera;
+
+
+- (void) processNewCameraFrameWithC: (CVImageBufferRef) cameraFrame;
+
+
++ (CameraController *) singleton;
 
 @end

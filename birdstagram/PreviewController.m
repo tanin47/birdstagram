@@ -8,6 +8,7 @@
 
 #import "PreviewController.h"
 #import <QuartzCore/QuartzCore.h>
+#include <math.h>
 
 
 static PreviewController *sharedInstance = nil;
@@ -27,13 +28,50 @@ static PreviewController *sharedInstance = nil;
 
 
 @synthesize photo;
-@synthesize bird;
+@synthesize birdLayer;
 @synthesize previewLayer;
+
+@synthesize originalBird;
+@synthesize originalBirdSize;
 
 @synthesize x;
 @synthesize y;
 @synthesize clockwiseAngle;
 @synthesize scale;
+
+
+- (void) setOriginalBird:(UIImage *)newBird {
+    
+    [originalBird release];
+    originalBird = [newBird retain];
+    
+    
+    int maxWidth = 150;
+    int maxHeight = 150;
+    
+    int newWidth = originalBird.size.width;
+    int newHeight = originalBird.size.height;
+    
+    if (newWidth > maxWidth || newHeight > maxHeight) {
+    
+        newHeight = maxHeight;
+        newWidth = originalBird.size.width * newHeight / originalBird.size.height;
+        
+        if (newWidth > maxWidth) {
+            newWidth = maxWidth;
+            newHeight = originalBird.size.height * newWidth / originalBird.size.width;
+        }
+        
+    }
+    
+    self.originalBirdSize = CGSizeMake(newWidth, newHeight);
+    
+    self.birdLayer.image = originalBird;
+    self.birdLayer.frame = CGRectMake(self.birdLayer.center.x - self.originalBirdSize.width/2.0,
+                                      self.birdLayer.center.y - self.originalBirdSize.height/2.0,
+                                      self.originalBirdSize.width,
+                                      self.originalBirdSize.height);
+}
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -67,6 +105,8 @@ static PreviewController *sharedInstance = nil;
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    self.originalBird = [UIImage imageNamed:@"bird.png"];
 
 }
 
@@ -122,66 +162,52 @@ static PreviewController *sharedInstance = nil;
 {
     [DSBezelActivityView newActivityViewForView:self.view.window withLabel:@"Saving the photo..."];
     
-    
-    NSLog(@"%f %f %f %f %f %f", self.bird.transform.a,
-                                self.bird.transform.b,
-                                self.bird.transform.c,
-                                self.bird.transform.d,
-                                self.bird.transform.tx,
-                                self.bird.transform.ty);
-    
-    
-    NSLog(@"Bird's dimension: %f %f", self.bird.frame.size.width, self.bird.frame.size.height);
-    
-    NSLog(@"Bird's position %f %f", self.bird.center.x, self.bird.center.y);
-    
-    
-    UIGraphicsBeginImageContextWithOptions(self.photo.size, YES, 0);
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    
-    [self.photo drawInRect:CGRectMake(0, 0, self.photo.size.width, self.photo.size.height)];
-    
-    
-    CGFloat scaleX = self.photo.size.width / self.previewLayer.frame.size.width;
-    CGFloat scaleY = self.photo.size.height / self.previewLayer.frame.size.height;
-    
-    CGRect rect = CGRectMake(self.bird.frame.origin.x * scaleX, 
-                                  self.bird.frame.origin.y * scaleY, 
-                                  self.bird.frame.size.width * scaleX, 
-                                  self.bird.frame.size.height * scaleY);
-    
-    NSLog(@"%f %f %f %f", rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
-    
-    
-    UIImage *scaledBird = [ImageHandler imageWithImage:self.bird.image scaledToSize:rect.size];
-    
-    CGAffineTransform transform = CGAffineTransformIdentity;
-    transform = CGAffineTransformTranslate(transform, (rect.origin.x + rect.size.width/2.0), (rect.origin.y + rect.size.height/2.0));
-    transform = CGAffineTransformConcat(transform, self.bird.transform);
-    
-    CGContextConcatCTM(context, transform);
-
-
-    CGRect originRect = CGRectMake(- rect.size.width/2.0,
-                                   - rect.size.height/2.0,
-                                   rect.size.width/2.0,
-                                   rect.size.height/2.0);
-    
-    CGContextDrawImage(context, originRect, scaledBird.CGImage);
-
-    transform = CGAffineTransformTranslate(transform, -(rect.origin.x + rect.size.width/2.0), -(rect.origin.y + rect.size.height/2.0));
-    
-    CGContextConcatCTM(context, transform);
-   
-    //[scaledBird drawInRect:originRect];
-    
-    
-    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-
-    
-    UIImageWriteToSavedPhotosAlbum(newImage, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+    dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        NSLog(@"%f %f %f %f %f %f", self.birdLayer.transform.a,
+                                    self.birdLayer.transform.b,
+                                    self.birdLayer.transform.c,
+                                    self.birdLayer.transform.d,
+                                    self.birdLayer.transform.tx,
+                                    self.birdLayer.transform.ty);
+        
+        
+        NSLog(@"Bird's dimension: %f %f", self.birdLayer.frame.size.width, self.birdLayer.frame.size.height);
+        
+        NSLog(@"Bird's position %f %f", self.birdLayer.center.x, self.birdLayer.center.y);
+        
+        
+        UIGraphicsBeginImageContextWithOptions(self.photo.size, YES, 0);
+        CGContextRef context = UIGraphicsGetCurrentContext();
+        
+        [self.photo drawInRect:CGRectMake(0, 0, self.photo.size.width, self.photo.size.height)];
+        
+        
+        CGFloat scaleX = self.photo.size.width / self.previewLayer.frame.size.width;
+        CGFloat scaleY = self.photo.size.height / self.previewLayer.frame.size.height;
+        
+        CGRect rect = CGRectMake(self.birdLayer.frame.origin.x * scaleX, 
+                                self.birdLayer.frame.origin.y * scaleY, 
+                                self.birdLayer.frame.size.width * scaleX, 
+                                self.birdLayer.frame.size.height * scaleY);
+        
+        
+        CGContextTranslateCTM(context, (rect.origin.x + rect.size.width/2.0), (rect.origin.y + rect.size.height/2.0));
+        CGContextScaleCTM(context, 
+                        self.originalBirdSize.width / self.originalBird.size.width, 
+                        self.originalBirdSize.height / self.originalBird.size.height);
+        CGContextScaleCTM(context, scaleX, scaleY);
+        CGContextConcatCTM(context, self.birdLayer.transform);
+        
+        
+        [self.originalBird drawAtPoint:CGPointMake(-self.originalBird.size.width/2.0, -self.originalBird.size.height/2.0)];
+     
+        UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        
+        
+        [self openInstagram:newImage];
+        //UIImageWriteToSavedPhotosAlbum(newImage, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+    });
 
 }
 
@@ -190,7 +216,6 @@ static PreviewController *sharedInstance = nil;
 {
     [self.navigationController popViewControllerAnimated:YES];
 }
-
 
 
 - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error 
@@ -210,10 +235,44 @@ static PreviewController *sharedInstance = nil;
         [message release];
         return;
     }
-
-    
     
     [self.navigationController popViewControllerAnimated:YES];
 }
+
+
+
+- (void) openInstagram: (UIImage *) image
+{
+    NSData* imageData = UIImageJPEGRepresentation(image, 1.0);
+    NSString *documentdir = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+    NSString *imagePath = [documentdir stringByAppendingPathComponent:@"shared123.ig"];
+    [imageData writeToFile:imagePath atomically:NO];
+    
+    NSLog(@"Done");
+    
+    dispatch_async( dispatch_get_main_queue(), ^{
+        
+        [DSBezelActivityView removeViewAnimated:YES];
+        
+        UIDocumentInteractionController *instagram = [UIDocumentInteractionController interactionControllerWithURL: [NSURL fileURLWithPath:imagePath]];
+        
+        
+        instagram.UTI = @"com.instagram.gram";
+        instagram.delegate = self;
+        [instagram presentPreviewAnimated:YES];
+        
+        NSLog(@"Done");
+        
+    });
+}
+
+
+#pragma mark -
+#pragma mark Document Interaction Controller Delegate Methods
+
+- (UIViewController *)documentInteractionControllerViewControllerForPreview:(UIDocumentInteractionController *)controller {
+    return self;
+}
+
 
 @end

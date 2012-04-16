@@ -19,7 +19,7 @@
 
 - (void) pinch: (CGFloat) scale
 {
-    //self.box.transform = CGAffineTransformScale(self.box.transform, scale, scale);
+    self.box.transform = CGAffineTransformScale(self.box.transform, scale, scale);
 }
 
 - (void) translation: (CGPoint) diff

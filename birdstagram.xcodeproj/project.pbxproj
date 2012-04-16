@@ -1,0 +1,343 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F246D549153B998C00587988 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F246D548153B998C00587988 /* UIKit.framework */; };
+		F246D54B153B998C00587988 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F246D54A153B998C00587988 /* Foundation.framework */; };
+		F246D54D153B998C00587988 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F246D54C153B998C00587988 /* CoreGraphics.framework */; };
+		F246D553153B998C00587988 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F246D551153B998C00587988 /* InfoPlist.strings */; };
+		F246D555153B998C00587988 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F246D554153B998C00587988 /* main.m */; };
+		F246D559153B998C00587988 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F246D558153B998C00587988 /* AppDelegate.m */; };
+		F246D572153B9AE900587988 /* MainController.m in Sources */ = {isa = PBXBuildFile; fileRef = F246D570153B9AE900587988 /* MainController.m */; };
+		F246D573153B9AE900587988 /* MainController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F246D571153B9AE900587988 /* MainController.xib */; };
+		F246D577153B9B4A00587988 /* MenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = F246D575153B9B4A00587988 /* MenuController.m */; };
+		F246D578153B9B4A00587988 /* MenuController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F246D576153B9B4A00587988 /* MenuController.xib */; };
+		F246D57C153B9C0000587988 /* ImageHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = F246D57A153B9C0000587988 /* ImageHandler.m */; };
+		F246D580153B9DBF00587988 /* PreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F246D57E153B9DBF00587988 /* PreviewController.m */; };
+		F246D581153B9DC000587988 /* PreviewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F246D57F153B9DBF00587988 /* PreviewController.xib */; };
+		F246D584153B9FB700587988 /* DSActivityView.m in Sources */ = {isa = PBXBuildFile; fileRef = F246D583153B9FB600587988 /* DSActivityView.m */; };
+		F246D587153BB01700587988 /* UIPreview.m in Sources */ = {isa = PBXBuildFile; fileRef = F246D586153BB01600587988 /* UIPreview.m */; };
+		F246D58A153BC12300587988 /* UIBirdView.m in Sources */ = {isa = PBXBuildFile; fileRef = F246D589153BC12200587988 /* UIBirdView.m */; };
+		F246D58D153BC72600587988 /* bird.png in Resources */ = {isa = PBXBuildFile; fileRef = F246D58C153BC72600587988 /* bird.png */; };
+		F246D58F153BCD6D00587988 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F246D58E153BCD6D00587988 /* QuartzCore.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		F246D544153B998C00587988 /* birdstagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = birdstagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F246D548153B998C00587988 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		F246D54A153B998C00587988 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		F246D54C153B998C00587988 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		F246D550153B998C00587988 /* birdstagram-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "birdstagram-Info.plist"; sourceTree = "<group>"; };
+		F246D552153B998C00587988 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		F246D554153B998C00587988 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		F246D556153B998C00587988 /* birdstagram-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "birdstagram-Prefix.pch"; sourceTree = "<group>"; };
+		F246D557153B998C00587988 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		F246D558153B998C00587988 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		F246D56F153B9AE900587988 /* MainController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainController.h; sourceTree = "<group>"; };
+		F246D570153B9AE900587988 /* MainController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainController.m; sourceTree = "<group>"; };
+		F246D571153B9AE900587988 /* MainController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainController.xib; sourceTree = "<group>"; };
+		F246D574153B9B4A00587988 /* MenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuController.h; sourceTree = "<group>"; };
+		F246D575153B9B4A00587988 /* MenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuController.m; sourceTree = "<group>"; };
+		F246D576153B9B4A00587988 /* MenuController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MenuController.xib; sourceTree = "<group>"; };
+		F246D57A153B9C0000587988 /* ImageHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageHandler.m; sourceTree = "<group>"; };
+		F246D57B153B9C0000587988 /* ImageHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageHandler.h; sourceTree = "<group>"; };
+		F246D57D153B9DBF00587988 /* PreviewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreviewController.h; sourceTree = "<group>"; };
+		F246D57E153B9DBF00587988 /* PreviewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreviewController.m; sourceTree = "<group>"; };
+		F246D57F153B9DBF00587988 /* PreviewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreviewController.xib; sourceTree = "<group>"; };
+		F246D582153B9FB600587988 /* DSActivityView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSActivityView.h; sourceTree = "<group>"; };
+		F246D583153B9FB600587988 /* DSActivityView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DSActivityView.m; sourceTree = "<group>"; };
+		F246D585153BB01500587988 /* UIPreview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIPreview.h; sourceTree = "<group>"; };
+		F246D586153BB01600587988 /* UIPreview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIPreview.m; sourceTree = "<group>"; };
+		F246D588153BC12100587988 /* UIBirdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIBirdView.h; sourceTree = "<group>"; };
+		F246D589153BC12200587988 /* UIBirdView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIBirdView.m; sourceTree = "<group>"; };
+		F246D58C153BC72600587988 /* bird.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bird.png; sourceTree = "<group>"; };
+		F246D58E153BCD6D00587988 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F246D541153B998C00587988 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F246D58F153BCD6D00587988 /* QuartzCore.framework in Frameworks */,
+				F246D549153B998C00587988 /* UIKit.framework in Frameworks */,
+				F246D54B153B998C00587988 /* Foundation.framework in Frameworks */,
+				F246D54D153B998C00587988 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F246D539153B998C00587988 = {
+			isa = PBXGroup;
+			children = (
+				F246D54E153B998C00587988 /* birdstagram */,
+				F246D547153B998C00587988 /* Frameworks */,
+				F246D545153B998C00587988 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F246D545153B998C00587988 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F246D544153B998C00587988 /* birdstagram.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F246D547153B998C00587988 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F246D58E153BCD6D00587988 /* QuartzCore.framework */,
+				F246D548153B998C00587988 /* UIKit.framework */,
+				F246D54A153B998C00587988 /* Foundation.framework */,
+				F246D54C153B998C00587988 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F246D54E153B998C00587988 /* birdstagram */ = {
+			isa = PBXGroup;
+			children = (
+				F246D58B153BC71300587988 /* Birds */,
+				F246D579153B9BB300587988 /* Core */,
+				F246D557153B998C00587988 /* AppDelegate.h */,
+				F246D558153B998C00587988 /* AppDelegate.m */,
+				F246D57D153B9DBF00587988 /* PreviewController.h */,
+				F246D57E153B9DBF00587988 /* PreviewController.m */,
+				F246D57F153B9DBF00587988 /* PreviewController.xib */,
+				F246D56F153B9AE900587988 /* MainController.h */,
+				F246D570153B9AE900587988 /* MainController.m */,
+				F246D571153B9AE900587988 /* MainController.xib */,
+				F246D574153B9B4A00587988 /* MenuController.h */,
+				F246D575153B9B4A00587988 /* MenuController.m */,
+				F246D576153B9B4A00587988 /* MenuController.xib */,
+				F246D585153BB01500587988 /* UIPreview.h */,
+				F246D586153BB01600587988 /* UIPreview.m */,
+				F246D588153BC12100587988 /* UIBirdView.h */,
+				F246D589153BC12200587988 /* UIBirdView.m */,
+				F246D54F153B998C00587988 /* Supporting Files */,
+			);
+			path = birdstagram;
+			sourceTree = "<group>";
+		};
+		F246D54F153B998C00587988 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F246D550153B998C00587988 /* birdstagram-Info.plist */,
+				F246D551153B998C00587988 /* InfoPlist.strings */,
+				F246D554153B998C00587988 /* main.m */,
+				F246D556153B998C00587988 /* birdstagram-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F246D579153B9BB300587988 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				F246D582153B9FB600587988 /* DSActivityView.h */,
+				F246D583153B9FB600587988 /* DSActivityView.m */,
+				F246D57A153B9C0000587988 /* ImageHandler.m */,
+				F246D57B153B9C0000587988 /* ImageHandler.h */,
+			);
+			name = Core;
+			sourceTree = "<group>";
+		};
+		F246D58B153BC71300587988 /* Birds */ = {
+			isa = PBXGroup;
+			children = (
+				F246D58C153BC72600587988 /* bird.png */,
+			);
+			name = Birds;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F246D543153B998C00587988 /* birdstagram */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F246D55C153B998C00587988 /* Build configuration list for PBXNativeTarget "birdstagram" */;
+			buildPhases = (
+				F246D540153B998C00587988 /* Sources */,
+				F246D541153B998C00587988 /* Frameworks */,
+				F246D542153B998C00587988 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = birdstagram;
+			productName = birdstagram;
+			productReference = F246D544153B998C00587988 /* birdstagram.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F246D53B153B998C00587988 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
+			buildConfigurationList = F246D53E153B998C00587988 /* Build configuration list for PBXProject "birdstagram" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = F246D539153B998C00587988;
+			productRefGroup = F246D545153B998C00587988 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F246D543153B998C00587988 /* birdstagram */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F246D542153B998C00587988 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F246D553153B998C00587988 /* InfoPlist.strings in Resources */,
+				F246D573153B9AE900587988 /* MainController.xib in Resources */,
+				F246D578153B9B4A00587988 /* MenuController.xib in Resources */,
+				F246D581153B9DC000587988 /* PreviewController.xib in Resources */,
+				F246D58D153BC72600587988 /* bird.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F246D540153B998C00587988 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F246D555153B998C00587988 /* main.m in Sources */,
+				F246D559153B998C00587988 /* AppDelegate.m in Sources */,
+				F246D572153B9AE900587988 /* MainController.m in Sources */,
+				F246D577153B9B4A00587988 /* MenuController.m in Sources */,
+				F246D57C153B9C0000587988 /* ImageHandler.m in Sources */,
+				F246D580153B9DBF00587988 /* PreviewController.m in Sources */,
+				F246D584153B9FB700587988 /* DSActivityView.m in Sources */,
+				F246D587153BB01700587988 /* UIPreview.m in Sources */,
+				F246D58A153BC12300587988 /* UIBirdView.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		F246D551153B998C00587988 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F246D552153B998C00587988 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		F246D55A153B998C00587988 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F246D55B153B998C00587988 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F246D55D153B998C00587988 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "birdstagram/birdstagram-Prefix.pch";
+				INFOPLIST_FILE = "birdstagram/birdstagram-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		F246D55E153B998C00587988 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "birdstagram/birdstagram-Prefix.pch";
+				INFOPLIST_FILE = "birdstagram/birdstagram-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F246D53E153B998C00587988 /* Build configuration list for PBXProject "birdstagram" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F246D55A153B998C00587988 /* Debug */,
+				F246D55B153B998C00587988 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F246D55C153B998C00587988 /* Build configuration list for PBXNativeTarget "birdstagram" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F246D55D153B998C00587988 /* Debug */,
+				F246D55E153B998C00587988 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F246D53B153B998C00587988 /* Project object */;
+}

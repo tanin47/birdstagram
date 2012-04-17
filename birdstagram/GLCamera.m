@@ -18,6 +18,7 @@
 
 - (id)init; 
 {
+    DLog(@"");
 	if (!(self = [super init]))
 		return nil;
 	
@@ -37,7 +38,7 @@
 	
 	// Add the video input	
 	NSError *error = nil;
-	videoInput = [[[AVCaptureDeviceInput alloc] initWithDevice:backFacingCamera error:&error] autorelease];
+	videoInput = [[AVCaptureDeviceInput alloc] initWithDevice:backFacingCamera error:&error];
 	if ([captureSession canAddInput:videoInput]) 
 	{
 		[captureSession addInput:videoInput];
@@ -46,6 +47,7 @@
 	[self videoPreviewLayer];
 	// Add the video frame output	
 	videoOutput = [[AVCaptureVideoDataOutput alloc] init];
+
 	[videoOutput setAlwaysDiscardsLateVideoFrames:YES];
 	// Use RGB frames instead of YUV to ease color processing
 	[videoOutput setVideoSettings:[NSDictionary dictionaryWithObject:[NSNumber numberWithInt:kCVPixelFormatType_32BGRA] forKey:(id)kCVPixelBufferPixelFormatTypeKey]];
@@ -54,6 +56,9 @@
 	
 	//	dispatch_queue_t videoQueue = dispatch_queue_create("com.sunsetlakesoftware.colortracking.videoqueue", NULL);
 	[videoOutput setSampleBufferDelegate:self queue:dispatch_get_main_queue()];
+    
+    videoOutput.minFrameDuration = CMTimeMake(5,1);
+
 	
 	if ([captureSession canAddOutput:videoOutput])
 	{
@@ -65,25 +70,54 @@
 	}
 	
 	// Start capturing
-	//	[captureSession setSessionPreset:AVCaptureSessionPresetHigh];
-	[captureSession setSessionPreset:AVCaptureSessionPreset640x480];
-	if (![captureSession isRunning])
-	{
-		[captureSession startRunning];
-	};
+    
+    [captureSession setSessionPreset:AVCaptureSessionPresetPhoto];
+    //[captureSession setSessionPreset:AVCaptureSessionPresetHigh];
+    //[captureSession setSessionPreset:AVCaptureSessionPreset640x480];
+	//[self start];
 	
 	return self;
 }
 
+- (void) start
+{
+    if (![captureSession isRunning])
+	{
+		[captureSession startRunning];
+	}
+    
+    isRunning = YES;
+}
+
+- (void) stop
+{
+    isRunning = NO;
+    
+    if ([captureSession isRunning])
+	{
+		[captureSession stopRunning];
+	}
+}
+
 - (void)dealloc 
 {
-	[captureSession stopRunning];
+    DLog(@"");
+    NSLog(@"Release camera %@", self);
+	[self stop];
 	
 	[captureSession release];
 	[videoPreviewLayer release];
 	[videoOutput release];
 	[videoInput release];
+    
+    captureSession = nil;
+	videoPreviewLayer = nil;
+	videoOutput = nil;
+	videoInput = nil;
+    
 	[super dealloc];
+    
+    NSLog(@"Succeeded releasing camera");
 }
 
 #pragma mark -
@@ -91,6 +125,8 @@
 
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection
 {
+    if (isRunning == NO) return;
+    
 	CVImageBufferRef pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
 	[self.delegate processNewCameraFrame:pixelBuffer];
 }

@@ -7,10 +7,25 @@
 //
 
 #import "MenuController.h"
-#import "PreviewController.h"
-#import "CameraController.h"
+
+
+static MenuController *sharedInstance = nil;
+
+
 
 @implementation MenuController
+
+
+#pragma mark Singleton Methods
++ (MenuController *) singleton {
+    @synchronized(self) {
+        if (sharedInstance == nil)
+            sharedInstance = [[self alloc] init];
+    }
+    return sharedInstance;
+}
+
+
 
 @synthesize imageHandler;
 
@@ -57,23 +72,28 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-
-- (IBAction) getPhoto: (id) sender
+- (IBAction) startCamera: (id) sender
 {
-    //[self.navigationController pushViewController:[CameraController singleton] animated:NO];
-    [imageHandler openActionSheet];
+    [self.navigationController pushViewController:[CameraController singleton] animated:NO];
 }
 
 
--(void) previewPhoto
-{
-    if (imageHandler.image == nil) return;
-    
-    [PreviewController singleton].photo = [ImageHandler scaleToInstagramWithImage:imageHandler.image];
-    [imageHandler clear];
-    [self.navigationController pushViewController:[PreviewController singleton] animated:NO];
-    
-    
-}
+//- (IBAction) getPhoto: (id) sender
+//{
+//    //[self.navigationController pushViewController:[CameraController singleton] animated:NO];
+//    [imageHandler openActionSheet];
+//}
+//
+//
+//-(void) previewPhoto
+//{
+//    if (imageHandler.image == nil) return;
+//    
+//    [PreviewController singleton].photo = [ImageHandler scaleToInstagramWithImage:imageHandler.image];
+//    [imageHandler clear];
+//    [self.navigationController pushViewController:[PreviewController singleton] animated:NO];
+//    
+//    
+//}
 
 @end

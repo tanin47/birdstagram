@@ -7,6 +7,7 @@
 //
 
 #import "CameraController.h"
+#import "PreviewController.h"
 
 
 static CameraController *sharedInstance = nil;
@@ -36,12 +37,20 @@ static CameraController *sharedInstance = nil;
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        
+        GLCamera *cameraTmp = [[GLCamera alloc] init];
+        self.camera = cameraTmp;
+        [cameraTmp release];
+        
+        self.camera.delegate = self;
+        [self cameraHasConnected];
     }
     return self;
 }
 
 - (void)didReceiveMemoryWarning
 {
+    DLog(@"");
     // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
     
@@ -52,29 +61,54 @@ static CameraController *sharedInstance = nil;
 
 - (void)viewDidLoad
 {
+    DLog(@"");
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
-    self.camera = [[GLCamera alloc] init];
-	[self.camera release];
-	
-	self.camera.delegate = self;
-	[self cameraHasConnected];
+
 }
 
 - (void)viewDidUnload
 {
+    DLog(@"");
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
-    
-    self.camera = nil;
+    //self.camera = nil;
+    DLog(@"End");
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+- (void) viewWillAppear:(BOOL)animated
+{
+    DLog(@"");
+    [super viewWillAppear:animated];
+    [self.camera start];
+    
+    [self.previewLayer.layer addSublayer:self.camera.videoPreviewLayer];
+    
+    CGRect bounds = self.previewLayer.layer.bounds;
+    self.camera.videoPreviewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+    self.camera.videoPreviewLayer.bounds = bounds;
+    self.camera.videoPreviewLayer.position = CGPointMake(CGRectGetMidX(bounds), CGRectGetMidY(bounds));
+}
+
+- (void) viewDidDisappear:(BOOL)animated
+{
+    DLog(@"");
+    [super viewDidDisappear:animated];
+    //[self.camera stop];
+    [self.camera.videoPreviewLayer removeFromSuperlayer];
+}
+
+
+- (IBAction) capturePhoto: (id) sender
+{
+    capturePhotoNow = YES;
 }
 
 
@@ -88,38 +122,48 @@ static CameraController *sharedInstance = nil;
 	 [self.view.layer addSublayer:camera.videoPreviewLayer];*/
 }
 
-- (void)processNewCameraFrame:(CVImageBufferRef)cameraFrame
+static inline double radians (double degrees) {return degrees * M_PI/180;}
+UIImage* rotateAndMakeSquare(UIImage* src, UIImageOrientation orientation)
 {
-	[self processNewCameraFrameWithC:cameraFrame];
+    CGFloat sideLength = (src.size.width < src.size.height) ? src.size.width : src.size.height;
+    
+    UIGraphicsBeginImageContext(CGSizeMake(sideLength, sideLength));
+    
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    CGContextTranslateCTM(context, sideLength/2.0, sideLength/2.0);
+    
+    if (orientation == UIImageOrientationRight) {
+        CGContextRotateCTM (context, radians(90));
+    } else if (orientation == UIImageOrientationLeft) {
+        CGContextRotateCTM (context, radians(-90));
+    } else if (orientation == UIImageOrientationDown) {
+        // NOTHING
+    } else if (orientation == UIImageOrientationUp) {
+        CGContextRotateCTM (context, radians(90));
+    }
+    
+    [src drawAtPoint:CGPointMake(-src.size.width/2.0, -src.size.height/2.0)];
+    
+    return UIGraphicsGetImageFromCurrentImageContext();
 }
 
 
-static void reference_convert (uint8_t* dest, uint8_t* src, int w, int h)
+- (void)processNewCameraFrame:(CVImageBufferRef)cameraFrame
 {
-    int i;
-    int r,g,b;
-    int y;
-    int n = w*h;
-    
-    for (i=0; i < n; i++)
+	if (capturePhotoNow == YES)
     {
-        b = *src++; // load blue
-        g = *src++; // load green
-        r = *src++; // load red
-        src++; // skip aplha
+        UIImage *image = rotateAndMakeSquare([self processNewCameraFrameWithC:cameraFrame], UIImageOrientationUp);
         
-        // build weighted average:
-        y = ((r*77)+(g*151)+(b*28))>>8;
+        [PreviewController singleton].photo = image;
+        [self.navigationController pushViewController:[PreviewController singleton] animated:NO];
         
-        // undo the scale by 256 and write to memory:
-        *dest++ = y;
-        *dest++ = y;
-        *dest++ = y;
-        dest++;
+        capturePhotoNow = NO;
     }
 }
 
-- (void) processNewCameraFrameWithC: (CVImageBufferRef) cameraFrame
+
+- (UIImage *) processNewCameraFrameWithC: (CVImageBufferRef) cameraFrame
 {
 	CVPixelBufferLockBaseAddress(cameraFrame, 0);
     
@@ -137,20 +181,20 @@ static void reference_convert (uint8_t* dest, uint8_t* src, int w, int h)
     
 
     CGImageRef newImage = CGBitmapContextCreateImage(newContext); 
+    
+    UIImage *image = [UIImage imageWithCGImage:newImage];
+
 	
     /*We release some components*/
     CGContextRelease(newContext); 
     CGColorSpaceRelease(colorSpace);
-    
-    /*We display the result on the custom layer. All the display stuff must be done in the main thread because
-	 UIKit is no thread safe, and as we are not in the main thread (remember we didn't use the main_queue)
-	 we use performSelectorOnMainThread to call our CALayer and tell it to display the CGImage.*/
-	[self.previewLayer.layer performSelectorOnMainThread:@selector(setContents:) withObject: (id) newImage waitUntilDone:YES];
 	
 	/*We relase the CGImageRef*/
 	CGImageRelease(newImage);
 	
 	CVPixelBufferUnlockBaseAddress(cameraFrame, 0);
+    
+    return image;
 }
 
 

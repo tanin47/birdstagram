@@ -212,9 +212,14 @@ static PreviewController *sharedInstance = nil;
         UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
         
+        self.instagram = [InstagramConnector getUIDocumentInteractionControllerWithImage:newImage WithDelegate:self];
         
-        [self openInstagram:newImage];
-        //UIImageWriteToSavedPhotosAlbum(newImage, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+        dispatch_async( dispatch_get_main_queue(), ^{
+            
+            [DSBezelActivityView removeViewAnimated:YES];
+            [self.instagram presentOpenInMenuFromRect:self.view.frame inView:self.view animated:YES];
+            
+        });
     });
 
 }
@@ -222,53 +227,8 @@ static PreviewController *sharedInstance = nil;
 
 - (IBAction) cancel: (id) sender
 {
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
-
-- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error 
-  contextInfo:(void *)contextInfo
-{
-    [DSBezelActivityView removeViewAnimated:YES];
-    
-    // Was there an error?
-    if (error != NULL)
-    {
-        UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Saving the photo failed"
-                                                          message:[error localizedFailureReason]
-                                                         delegate:nil
-                                                cancelButtonTitle:@"Close"
-                                                otherButtonTitles:nil];
-        [message show];
-        [message release];
-        return;
-    }
-    
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
-
-
-- (void) openInstagram: (UIImage *) image
-{
-    NSData* imageData = UIImageJPEGRepresentation(image, 1.0);
-    NSString *documentdir = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-    NSString *imagePath = [documentdir stringByAppendingPathComponent:@"shared.igo"];
-    [imageData writeToFile:imagePath atomically:NO];
-    
-    
-    dispatch_async( dispatch_get_main_queue(), ^{
-        
-        [DSBezelActivityView removeViewAnimated:YES];
-        
-        self.instagram = [UIDocumentInteractionController interactionControllerWithURL: [NSURL fileURLWithPath:imagePath]];
-        
-        
-        self.instagram.UTI = @"com.instagram.exclusivegram";
-        self.instagram.delegate = self;
-        [self.instagram presentOpenInMenuFromRect:self.view.frame inView:self.view animated:YES];
-        
-    });
+    DLog(@"");
+    [self.navigationController popViewControllerAnimated:NO];
 }
 
 
@@ -282,7 +242,7 @@ static PreviewController *sharedInstance = nil;
 
 - (void) documentInteractionController: (UIDocumentInteractionController *) controller didEndSendingToApplication: (NSString *) application
 {
-    [self.navigationController popViewControllerAnimated:NO];
+    [self.navigationController popToRootViewControllerAnimated:NO];
 }
 
 

@@ -28,7 +28,6 @@
 - (IBAction) confirm: (id) sender;
 - (IBAction) cancel: (id) sender;
 
-- (void) openInstagram: (UIImage *) image;
 
 - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error 
   contextInfo:(void *)contextInfo;

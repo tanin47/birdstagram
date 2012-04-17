@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F245D5AA153CF2A000F17E84 /* InstagramConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = F245D5A9153CF2A000F17E84 /* InstagramConnector.m */; };
+		F245D5B1153D043200F17E84 /* shutter_closed.png in Resources */ = {isa = PBXBuildFile; fileRef = F245D5B0153D043200F17E84 /* shutter_closed.png */; };
 		F246D549153B998C00587988 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F246D548153B998C00587988 /* UIKit.framework */; };
 		F246D54B153B998C00587988 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F246D54A153B998C00587988 /* Foundation.framework */; };
 		F246D54D153B998C00587988 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F246D54C153B998C00587988 /* CoreGraphics.framework */; };
@@ -34,6 +36,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F245D5A8153CF2A000F17E84 /* InstagramConnector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InstagramConnector.h; sourceTree = "<group>"; };
+		F245D5A9153CF2A000F17E84 /* InstagramConnector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InstagramConnector.m; sourceTree = "<group>"; };
+		F245D5B0153D043200F17E84 /* shutter_closed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shutter_closed.png; sourceTree = "<group>"; };
 		F246D544153B998C00587988 /* birdstagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = birdstagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F246D548153B998C00587988 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		F246D54A153B998C00587988 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -91,6 +96,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F245D5AF153D03FC00F17E84 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				F245D5B0153D043200F17E84 /* shutter_closed.png */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
 		F246D539153B998C00587988 = {
 			isa = PBXGroup;
 			children = (
@@ -125,6 +138,7 @@
 		F246D54E153B998C00587988 /* birdstagram */ = {
 			isa = PBXGroup;
 			children = (
+				F245D5AF153D03FC00F17E84 /* Images */,
 				F2C1190A153C13F300552A66 /* GLCamera.h */,
 				F2C1190B153C13F300552A66 /* GLCamera.m */,
 				F246D58B153BC71300587988 /* Birds */,
@@ -170,6 +184,8 @@
 				F246D583153B9FB600587988 /* DSActivityView.m */,
 				F246D57A153B9C0000587988 /* ImageHandler.m */,
 				F246D57B153B9C0000587988 /* ImageHandler.h */,
+				F245D5A8153CF2A000F17E84 /* InstagramConnector.h */,
+				F245D5A9153CF2A000F17E84 /* InstagramConnector.m */,
 			);
 			name = Core;
 			sourceTree = "<group>";
@@ -238,6 +254,7 @@
 				F246D581153B9DC000587988 /* PreviewController.xib in Resources */,
 				F246D58D153BC72600587988 /* bird.png in Resources */,
 				F2C11905153C128B00552A66 /* CameraController.xib in Resources */,
+				F245D5B1153D043200F17E84 /* shutter_closed.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,6 +276,7 @@
 				F246D58A153BC12300587988 /* UIBirdView.m in Sources */,
 				F2C11904153C128B00552A66 /* CameraController.m in Sources */,
 				F2C1190C153C13F300552A66 /* GLCamera.m in Sources */,
+				F245D5AA153CF2A000F17E84 /* InstagramConnector.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

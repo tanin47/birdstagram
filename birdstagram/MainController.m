@@ -7,7 +7,6 @@
 //
 
 #import "MainController.h"
-#import "MenuController.h"
 
 @implementation MainController
 
@@ -36,7 +35,7 @@
     
     [self setNavigationBarHidden:YES animated:NO];
     // Do any additional setup after loading the view from its nib.
-    [self pushViewController:[[MenuController alloc] init] animated:NO];
+    [self pushViewController:[MenuController singleton] animated:NO];
 }
 
 - (void)viewDidUnload

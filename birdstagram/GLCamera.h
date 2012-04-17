@@ -20,10 +20,15 @@
 	AVCaptureSession *captureSession;
 	AVCaptureDeviceInput *videoInput;
 	AVCaptureVideoDataOutput *videoOutput;
+    
+    BOOL isRunning;
 }
 
 @property(nonatomic, assign) id<GLCameraDelegate> delegate;
 @property(readonly) AVCaptureVideoPreviewLayer *videoPreviewLayer;
+
+- (void) start;
+- (void) stop;
 
 @end
 

@@ -9,14 +9,17 @@
 #import <UIKit/UIKit.h>
 #import "GLCamera.h"
 
-@interface CameraController : UIViewController<GLCameraDelegate>
+@interface CameraController : UIViewController<GLCameraDelegate> {
+    BOOL capturePhotoNow;
+}
 
 
 @property (nonatomic, retain) IBOutlet UIView* previewLayer;
 @property (nonatomic, retain) GLCamera *camera;
 
 
-- (void) processNewCameraFrameWithC: (CVImageBufferRef) cameraFrame;
+- (UIImage *) processNewCameraFrameWithC: (CVImageBufferRef) cameraFrame;
+- (IBAction) capturePhoto: (id) sender;
 
 
 + (CameraController *) singleton;

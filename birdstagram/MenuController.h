@@ -12,7 +12,12 @@
 
 @property (nonatomic, retain) ImageHandler *imageHandler;
 
-- (void) previewPhoto;
-- (IBAction) getPhoto: (id) sender;
+
+- (IBAction) startCamera: (id) sender;
+
+//- (void) previewPhoto;
+//- (IBAction) getPhoto: (id) sender;
+
++ (MenuController *) singleton;
 
 @end

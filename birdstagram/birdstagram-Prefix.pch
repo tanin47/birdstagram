@@ -1,6 +1,15 @@
 //
 // Prefix header for all source files of the 'birdstagram' target in the 'birdstagram' project
 //
+#ifdef DEBUG
+#   define DLog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
+#else
+#   define DLog(...)
+#endif
+
+// ALog always displays output regardless of the DEBUG setting
+#define ALog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
+
 
 #import <Availability.h>
 
@@ -18,3 +27,10 @@
 
 #import "UIPreview.h"
 #import "UIBirdView.h"
+
+#import "InstagramConnector.h"
+
+#import "MainController.h"
+#import "PreviewController.h"
+#import "CameraController.h"
+#import "MenuController.h"

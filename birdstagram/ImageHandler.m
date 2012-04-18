@@ -148,23 +148,23 @@
 	
 	self.image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
     
-    if (self.image.size.width > 1200 || self.image.size.height > 1200)
-    {
-        CGFloat targetWidth = 1000;
-        CGFloat targetHeight = 1000;
-        
-        if (self.image.size.width < self.image.size.height)
-        {
-            targetWidth = (targetHeight * self.image.size.width / self.image.size.height);
-        }
-        else
-        {
-            targetHeight = (targetWidth * self.image.size.height / self.image.size.width);
-        }
-        
-        self.image = [ImageHandler imageWithImage:self.image
-                                     scaledToSize:CGSizeMake(targetWidth, targetHeight)];
-    }
+//    if (self.image.size.width > 1200 || self.image.size.height > 1200)
+//    {
+//        CGFloat targetWidth = 1000;
+//        CGFloat targetHeight = 1000;
+//        
+//        if (self.image.size.width < self.image.size.height)
+//        {
+//            targetWidth = (targetHeight * self.image.size.width / self.image.size.height);
+//        }
+//        else
+//        {
+//            targetHeight = (targetWidth * self.image.size.height / self.image.size.width);
+//        }
+//        
+//        self.image = [ImageHandler imageWithImage:self.image
+//                                     scaledToSize:CGSizeMake(targetWidth, targetHeight)];
+//    }
 	
 	[target performSelector:method];
 }

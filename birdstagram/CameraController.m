@@ -109,6 +109,10 @@ static CameraController *sharedInstance = nil;
 - (IBAction) capturePhoto: (id) sender
 {
     capturePhotoNow = YES;
+    [self.camera captureAndOnDone:^(UIImage *image) {
+        [PreviewController singleton].photo = image;
+        [self.navigationController pushViewController:[PreviewController singleton] animated:NO];
+    }];
 }
 
 
@@ -122,16 +126,15 @@ static CameraController *sharedInstance = nil;
 	 [self.view.layer addSublayer:camera.videoPreviewLayer];*/
 }
 
+
 static inline double radians (double degrees) {return degrees * M_PI/180;}
-UIImage* rotateAndMakeSquare(UIImage* src, UIImageOrientation orientation)
+UIImage* rotate(UIImage* src, UIImageOrientation orientation)
 {
-    CGFloat sideLength = (src.size.width < src.size.height) ? src.size.width : src.size.height;
-    
-    UIGraphicsBeginImageContext(CGSizeMake(sideLength, sideLength));
+    UIGraphicsBeginImageContext(CGSizeMake(src.size.height, src.size.width));
     
     CGContextRef context = UIGraphicsGetCurrentContext();
     
-    CGContextTranslateCTM(context, sideLength/2.0, sideLength/2.0);
+    CGContextTranslateCTM(context, src.size.height/2.0, src.size.width/2.0);
     
     if (orientation == UIImageOrientationRight) {
         CGContextRotateCTM (context, radians(90));
@@ -153,10 +156,10 @@ UIImage* rotateAndMakeSquare(UIImage* src, UIImageOrientation orientation)
 {
 	if (capturePhotoNow == YES)
     {
-        UIImage *image = rotateAndMakeSquare([self processNewCameraFrameWithC:cameraFrame], UIImageOrientationUp);
+        UIImage *image = rotate([self processNewCameraFrameWithC:cameraFrame], UIImageOrientationUp);
         
-        [PreviewController singleton].photo = image;
-        [self.navigationController pushViewController:[PreviewController singleton] animated:NO];
+        [self.camera.videoPreviewLayer removeFromSuperlayer];
+        [self.previewLayer.layer setContents:(id)image.CGImage];
         
         capturePhotoNow = NO;
     }
@@ -173,6 +176,7 @@ UIImage* rotateAndMakeSquare(UIImage* src, UIImageOrientation orientation)
     size_t width = CVPixelBufferGetWidth(cameraFrame); 
     size_t height = CVPixelBufferGetHeight(cameraFrame); 
     
+    
     //reference_convert(baseAddress, baseAddress, width, height);
     
     /*Create a CGImageRef from the CVImageBufferRef*/
@@ -183,7 +187,6 @@ UIImage* rotateAndMakeSquare(UIImage* src, UIImageOrientation orientation)
     CGImageRef newImage = CGBitmapContextCreateImage(newContext); 
     
     UIImage *image = [UIImage imageWithCGImage:newImage];
-
 	
     /*We release some components*/
     CGContextRelease(newContext); 

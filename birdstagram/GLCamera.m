@@ -45,37 +45,22 @@
 	}
 	
 	[self videoPreviewLayer];
-	// Add the video frame output	
+    
 	videoOutput = [[AVCaptureVideoDataOutput alloc] init];
-
 	[videoOutput setAlwaysDiscardsLateVideoFrames:YES];
-	// Use RGB frames instead of YUV to ease color processing
 	[videoOutput setVideoSettings:[NSDictionary dictionaryWithObject:[NSNumber numberWithInt:kCVPixelFormatType_32BGRA] forKey:(id)kCVPixelBufferPixelFormatTypeKey]];
-	//	dispatch_queue_t videoQueue = dispatch_queue_create("com.sunsetlakesoftware.colortracking.videoqueue", NULL);
-	//	[videoOutput setSampleBufferDelegate:self queue:videoQueue];
-	
-	//	dispatch_queue_t videoQueue = dispatch_queue_create("com.sunsetlakesoftware.colortracking.videoqueue", NULL);
-	[videoOutput setSampleBufferDelegate:self queue:dispatch_get_main_queue()];
-    
     videoOutput.minFrameDuration = CMTimeMake(5,1);
+    [captureSession addOutput:videoOutput];
+    [videoOutput setSampleBufferDelegate:self queue:dispatch_get_main_queue()];
+    
+    
+    stillImageOutput = [[AVCaptureStillImageOutput alloc] init];
+    [stillImageOutput setOutputSettings:[NSDictionary dictionaryWithObject:AVVideoCodecJPEG forKey:AVVideoCodecKey]];
+    [captureSession addOutput:stillImageOutput];
 
 	
-	if ([captureSession canAddOutput:videoOutput])
-	{
-		[captureSession addOutput:videoOutput];
-	}
-	else
-	{
-		NSLog(@"Couldn't add video output");
-	}
-	
-	// Start capturing
-    
     [captureSession setSessionPreset:AVCaptureSessionPresetPhoto];
-    //[captureSession setSessionPreset:AVCaptureSessionPresetHigh];
-    //[captureSession setSessionPreset:AVCaptureSessionPreset640x480];
-	//[self start];
-	
+
 	return self;
 }
 
@@ -108,16 +93,38 @@
 	[captureSession release];
 	[videoPreviewLayer release];
 	[videoOutput release];
+    [stillImageOutput release];
 	[videoInput release];
     
     captureSession = nil;
 	videoPreviewLayer = nil;
 	videoOutput = nil;
+    stillImageOutput = nil;
 	videoInput = nil;
     
 	[super dealloc];
     
     NSLog(@"Succeeded releasing camera");
+}
+
+
+- (void) captureAndOnDone: (void(^)(UIImage *)) callback;
+{
+    
+    [stillImageOutput captureStillImageAsynchronouslyFromConnection:[stillImageOutput.connections objectAtIndex:0]
+                                                  completionHandler:^(CMSampleBufferRef buffer, NSError *error) {
+                                                      
+                                                      if (buffer == NULL) {
+                                                          return;
+                                                      }
+                                                          
+                                                      NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:buffer];
+                                                  
+                                                      UIImage *image = [[UIImage alloc] initWithData:imageData]; 
+                                                      callback(image);
+                                                      [image release];
+                                                      
+                                                }];
 }
 
 #pragma mark -

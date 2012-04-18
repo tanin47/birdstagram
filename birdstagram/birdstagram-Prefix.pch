@@ -22,6 +22,8 @@
     #import <Foundation/Foundation.h>
 #endif
 
+#import "UIHorizontalTableView.h"
+
 #import "DSActivityView.h"
 #import "ImageHandler.h"
 

@@ -7,9 +7,19 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "BirdOverlay.h"
 
-@interface UIBirdView : UIPreview
+@interface UIBirdView : UIPreview<UIActionSheetDelegate>
 
-@property (nonatomic, retain) IBOutlet UIView *box;
+@property (nonatomic, retain) BirdOverlay *selectedBird;
+@property (nonatomic, retain) BirdOverlay *actionSheetBird;
+@property (nonatomic, retain) NSMutableArray *birds;
+
+- (IBAction) showBirdOption: (UIGestureRecognizer *) recognizer;
+- (IBAction) tapBird: (UIGestureRecognizer *) recognizer;
+
+- (void) addBird: (BirdOverlay *) bird;
+- (void) removeBird: (BirdOverlay *) bird;
+- (void) reset;
 
 @end

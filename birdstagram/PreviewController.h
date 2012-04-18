@@ -8,14 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PreviewController : UIViewController<UIDocumentInteractionControllerDelegate>
+@interface PreviewController : UIViewController<UIDocumentInteractionControllerDelegate, UIHorizontalTableViewDelegate>
 
 @property (nonatomic, retain) UIImage *photo;
-@property (nonatomic, retain) IBOutlet UIImageView *birdLayer;
-@property (nonatomic, retain) IBOutlet UIView *previewLayer;
 
-@property (nonatomic, retain) UIImage *originalBird;
-@property CGSize originalBirdSize;
+@property (nonatomic, retain) IBOutlet UIBirdView *previewLayer;
+
+@property (nonatomic, retain) UIHorizontalTableView *birdPanel;
+
 @property (nonatomic, retain) UIDocumentInteractionController *instagram;
 
 @property CGFloat x;
@@ -25,9 +25,15 @@
 
 @property CGFloat scale;
 
-- (IBAction) confirm: (id) sender;
+- (UIImage *) getFinalImage;
+
+- (IBAction) sendToInstagram: (id) sender;
+- (IBAction) saveToAlbum: (id) sender;
 - (IBAction) cancel: (id) sender;
 
+- (IBAction) toggleBirdPanel: (UIGestureRecognizer *) recognizer;
+- (IBAction) openBirdPanel: (id) sender;
+- (IBAction) closeBirdPanel: (id) sender;
 
 - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error 
   contextInfo:(void *)contextInfo;

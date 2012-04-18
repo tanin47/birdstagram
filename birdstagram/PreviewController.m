@@ -9,7 +9,8 @@
 #import "PreviewController.h"
 #import <QuartzCore/QuartzCore.h>
 #include <math.h>
-
+#import "BirdCell.h"
+#import "BirdOverlay.h"
 
 static PreviewController *sharedInstance = nil;
 
@@ -27,12 +28,11 @@ static PreviewController *sharedInstance = nil;
 }
 
 
+@synthesize birdPanel;
+
 @synthesize photo;
-@synthesize birdLayer;
 @synthesize previewLayer;
 
-@synthesize originalBird;
-@synthesize originalBirdSize;
 @synthesize instagram;
 
 @synthesize x;
@@ -41,38 +41,6 @@ static PreviewController *sharedInstance = nil;
 @synthesize scale;
 
 
-- (void) setOriginalBird:(UIImage *)newBird {
-    
-    [originalBird release];
-    originalBird = [newBird retain];
-    
-    
-    int maxWidth = 150;
-    int maxHeight = 150;
-    
-    int newWidth = originalBird.size.width;
-    int newHeight = originalBird.size.height;
-    
-    if (newWidth > maxWidth || newHeight > maxHeight) {
-    
-        newHeight = maxHeight;
-        newWidth = originalBird.size.width * newHeight / originalBird.size.height;
-        
-        if (newWidth > maxWidth) {
-            newWidth = maxWidth;
-            newHeight = originalBird.size.height * newWidth / originalBird.size.width;
-        }
-        
-    }
-    
-    self.originalBirdSize = CGSizeMake(newWidth, newHeight);
-    
-    self.birdLayer.image = originalBird;
-    self.birdLayer.frame = CGRectMake(self.birdLayer.center.x - self.originalBirdSize.width/2.0,
-                                      self.birdLayer.center.y - self.originalBirdSize.height/2.0,
-                                      self.originalBirdSize.width,
-                                      self.originalBirdSize.height);
-}
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -97,7 +65,6 @@ static PreviewController *sharedInstance = nil;
 {
     self.photo = nil;
     self.instagram = nil;
-    self.originalBird = nil;
     
     [super dealloc];
 }
@@ -109,8 +76,13 @@ static PreviewController *sharedInstance = nil;
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    self.originalBird = [UIImage imageNamed:@"bird.png"];
-
+    UIHorizontalTableView *horizontalTmp = [[UIHorizontalTableView alloc] initWithFrame:CGRectMake(0, -50, 320, 50)];
+    
+    self.birdPanel = horizontalTmp;
+    [horizontalTmp release];
+    
+    self.birdPanel.horizontalDelegate = self;
+    [self.view addSubview:self.birdPanel];
 }
 
 - (void)viewDidUnload
@@ -131,29 +103,9 @@ static PreviewController *sharedInstance = nil;
 {
     [super viewDidAppear:animated];
     
-    CGSize size = [self.photo size];
-    NSLog(@"%f %f", size.width, size.height);
+    self.previewLayer.backgroundColor = [UIColor colorWithPatternImage:[ImageHandler imageWithImage:self.photo scaledToSize:CGSizeMake(self.previewLayer.frame.size.width, self.previewLayer.frame.size.height)]]; 
     
-    
-    int maxWidth = self.previewLayer.frame.size.width;
-    int maxHeight = self.previewLayer.frame.size.height;
-    
-    int newHeight = maxHeight;
-    int newWidth = size.width * newHeight / size.height;
-    
-    if (newWidth > maxWidth) {
-        newWidth = maxWidth;
-        newHeight = size.height * newWidth / size.width;
-    }
-    
-//    self.previewLayer.frame = CGRectMake((320 - newWidth) / 2, (400 - newHeight) / 2, newWidth, newHeight);
-    
-    NSLog(@"%f %f %f %f", self.previewLayer.frame.origin.x,
-                            self.previewLayer.frame.origin.y,
-                            self.previewLayer.frame.size.width,
-                            self.previewLayer.frame.size.height);
-    
-    self.previewLayer.backgroundColor = [UIColor colorWithPatternImage:[ImageHandler imageWithImage:self.photo scaledToSize:CGSizeMake(newWidth, newHeight)]]; 
+    [self openBirdPanel:nil];
 }
 
 
@@ -161,58 +113,64 @@ static PreviewController *sharedInstance = nil;
 {
     [super viewDidDisappear:animated];
     
-    self.previewLayer.backgroundColor = [UIColor grayColor]; 
+    self.previewLayer.backgroundColor = [UIColor grayColor];
+    [self.previewLayer reset];
+}
+
+
+- (UIImage *) getFinalImage
+{
+    UIGraphicsBeginImageContextWithOptions(self.photo.size, YES, 0);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    [self.photo drawInRect:CGRectMake(0, 0, self.photo.size.width, self.photo.size.height)];
+    
+    
+    CGFloat scaleX = self.photo.size.width / self.previewLayer.frame.size.width;
+    CGFloat scaleY = self.photo.size.height / self.previewLayer.frame.size.height;
+    
+    DLog(@"birds %d", [self.previewLayer.birds count]);
+    
+    for (BirdOverlay *bird in self.previewLayer.birds) {
+        
+        CGRect rect = CGRectMake(bird.frame.origin.x * scaleX, 
+                                 bird.frame.origin.y * scaleY, 
+                                 bird.frame.size.width * scaleX, 
+                                 bird.frame.size.height * scaleY);
+        
+        
+        CGContextTranslateCTM(context, (rect.origin.x + rect.size.width/2.0), (rect.origin.y + rect.size.height/2.0));
+        
+        CGFloat thisScaleX = scaleX * bird.originalBirdSize.width / bird.originalBird.size.width;
+        CGFloat thisScaleY = scaleY * bird.originalBirdSize.height / bird.originalBird.size.height;
+        
+        CGContextScaleCTM(context, thisScaleX, thisScaleY);
+        CGContextConcatCTM(context, bird.transform);
+        
+        
+        [bird.originalBird drawAtPoint:CGPointMake(-bird.originalBird.size.width/2.0, -bird.originalBird.size.height/2.0)];
+        
+        CGContextConcatCTM(context, CGAffineTransformInvert(bird.transform));
+        CGContextScaleCTM(context, 1.0 / thisScaleX, 1.0 / thisScaleY);
+        CGContextTranslateCTM(context, -(rect.origin.x + rect.size.width/2.0), -(rect.origin.y + rect.size.height/2.0));
+        
+    }
+    
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return newImage;
 }
 
 
 
-- (IBAction) confirm: (id) sender
+- (IBAction) sendToInstagram: (id) sender
 {
     [DSBezelActivityView newActivityViewForView:self.view.window withLabel:@"Contacting Instagram..."];
     
-    dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-        NSLog(@"%f %f %f %f %f %f", self.birdLayer.transform.a,
-                                    self.birdLayer.transform.b,
-                                    self.birdLayer.transform.c,
-                                    self.birdLayer.transform.d,
-                                    self.birdLayer.transform.tx,
-                                    self.birdLayer.transform.ty);
+    dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         
-        
-        NSLog(@"Bird's dimension: %f %f", self.birdLayer.frame.size.width, self.birdLayer.frame.size.height);
-        
-        NSLog(@"Bird's position %f %f", self.birdLayer.center.x, self.birdLayer.center.y);
-        
-        
-        UIGraphicsBeginImageContextWithOptions(self.photo.size, YES, 0);
-        CGContextRef context = UIGraphicsGetCurrentContext();
-        
-        [self.photo drawInRect:CGRectMake(0, 0, self.photo.size.width, self.photo.size.height)];
-        
-        
-        CGFloat scaleX = self.photo.size.width / self.previewLayer.frame.size.width;
-        CGFloat scaleY = self.photo.size.height / self.previewLayer.frame.size.height;
-        
-        CGRect rect = CGRectMake(self.birdLayer.frame.origin.x * scaleX, 
-                                self.birdLayer.frame.origin.y * scaleY, 
-                                self.birdLayer.frame.size.width * scaleX, 
-                                self.birdLayer.frame.size.height * scaleY);
-        
-        
-        CGContextTranslateCTM(context, (rect.origin.x + rect.size.width/2.0), (rect.origin.y + rect.size.height/2.0));
-        CGContextScaleCTM(context, 
-                        self.originalBirdSize.width / self.originalBird.size.width, 
-                        self.originalBirdSize.height / self.originalBird.size.height);
-        CGContextScaleCTM(context, scaleX, scaleY);
-        CGContextConcatCTM(context, self.birdLayer.transform);
-        
-        
-        [self.originalBird drawAtPoint:CGPointMake(-self.originalBird.size.width/2.0, -self.originalBird.size.height/2.0)];
-     
-        UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
-        
-        self.instagram = [InstagramConnector getUIDocumentInteractionControllerWithImage:newImage WithDelegate:self];
+        self.instagram = [InstagramConnector getUIDocumentInteractionControllerWithImage:[ImageHandler scaleToInstagramWithImage:[self getFinalImage]] WithDelegate:self];
         
         dispatch_async( dispatch_get_main_queue(), ^{
             
@@ -225,11 +183,74 @@ static PreviewController *sharedInstance = nil;
 }
 
 
+- (IBAction) saveToAlbum: (id) sender
+{
+    [DSBezelActivityView newActivityViewForView:self.view.window withLabel:@"Saving to the album..."];
+    
+    dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        UIImageWriteToSavedPhotosAlbum([self getFinalImage], self, @selector(thisImage:hasBeenSavedInPhotoAlbumWithError:usingContextInfo:), nil);
+    });
+}
+
+
+- (void)thisImage:(UIImage *)image hasBeenSavedInPhotoAlbumWithError:(NSError *)error usingContextInfo:(void*)ctxInfo {
+    
+    [DSBezelActivityView removeViewAnimated:YES];
+    
+    if (error) {
+        UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Saving failed."
+                                                          message:[error localizedFailureReason]
+                                                         delegate:nil
+                                                cancelButtonTitle:@"Close"
+                                                otherButtonTitles:nil];
+        [message show];
+        [message release];
+        return;
+    }
+    
+    [self.navigationController popToRootViewControllerAnimated:NO];
+}
+
+
+
 - (IBAction) cancel: (id) sender
 {
     DLog(@"");
     [self.navigationController popViewControllerAnimated:NO];
 }
+
+
+- (IBAction) toggleBirdPanel: (UIGestureRecognizer *) recognizer
+{
+    if (self.birdPanel.hidden == YES) {
+        [self openBirdPanel:nil];
+    } else {
+        [self closeBirdPanel:nil];
+    }
+}
+
+
+- (IBAction) openBirdPanel: (id) sender
+{
+    self.birdPanel.hidden = NO;
+    [UIView animateWithDuration:0.3 animations:^{
+        self.birdPanel.frame = CGRectMake(0, 0, 320, 50);
+    } completion:^ (BOOL finished){
+        self.birdPanel.hidden = NO;
+    }];
+}
+
+
+- (IBAction) closeBirdPanel: (id) sender
+{
+    self.birdPanel.hidden = NO;
+    [UIView animateWithDuration:0.3 animations:^{
+        self.birdPanel.frame = CGRectMake(0, -50, 320, 50);
+    } completion:^ (BOOL finished){
+        self.birdPanel.hidden = YES;
+    }];
+}
+
 
 
 #pragma mark -
@@ -244,6 +265,44 @@ static PreviewController *sharedInstance = nil;
 {
     [self.navigationController popToRootViewControllerAnimated:NO];
 }
+
+
+- (void) tableView: (UIHorizontalTableView *) tableView didSelectColumnAt: (int) columnIndex
+{
+    BirdOverlay *bird = [[BirdOverlay alloc] initWithFrame:CGRectMake(0, 0, 150, 150)];
+    
+    bird.originalBird = [UIImage imageNamed:@"bird.png"];
+    [bird setHighlightedBird:[UIImage imageNamed:@"bird_selected.png"]];
+    
+    [self.previewLayer addBird:bird];
+    
+    [bird release];
+    [self closeBirdPanel:nil];
+}
+
+- (CGFloat) tableViewWidthForColumn: (UIHorizontalTableView *) tableView
+{
+    return 50;
+}
+
+- (NSInteger) numberOfColumns: (UIHorizontalTableView *) tableView
+{
+    return 20;
+}
+
+- (UIView *) tableView: (UIHorizontalTableView *) tableView cellForColumnAt: (int) columnIndex
+{
+    BirdCell *cell = (BirdCell *)[self.birdPanel dequeueReusableCell];
+    
+    if (cell == nil) {
+        cell = [[[BirdCell alloc] init] autorelease];
+    }
+    
+    cell.birdImage.image = [UIImage imageNamed:@"bird.png"];
+    
+    return cell;
+}
+
 
 
 @end

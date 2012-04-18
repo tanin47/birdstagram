@@ -14,6 +14,7 @@
 
 
 - (IBAction) startCamera: (id) sender;
+- (IBAction) openAlbum: (id) sender;
 
 //- (void) previewPhoto;
 //- (IBAction) getPhoto: (id) sender;

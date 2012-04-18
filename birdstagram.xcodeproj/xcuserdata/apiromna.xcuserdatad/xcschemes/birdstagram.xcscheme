@@ -14,7 +14,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "F246D543153B998C00587988"
-               BuildableName = "birdstagram.app"
+               BuildableName = "Stampo.app"
                BlueprintName = "birdstagram"
                ReferencedContainer = "container:birdstagram.xcodeproj">
             </BuildableReference>
@@ -32,7 +32,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F246D543153B998C00587988"
-            BuildableName = "birdstagram.app"
+            BuildableName = "Stampo.app"
             BlueprintName = "birdstagram"
             ReferencedContainer = "container:birdstagram.xcodeproj">
          </BuildableReference>
@@ -50,18 +50,11 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F246D543153B998C00587988"
-            BuildableName = "birdstagram.app"
+            BuildableName = "Stampo.app"
             BlueprintName = "birdstagram"
             ReferencedContainer = "container:birdstagram.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
-      <EnvironmentVariables>
-         <EnvironmentVariable
-            key = "NSZombieEnabled"
-            value = "YES"
-            isEnabled = "YES">
-         </EnvironmentVariable>
-      </EnvironmentVariables>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -75,7 +68,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F246D543153B998C00587988"
-            BuildableName = "birdstagram.app"
+            BuildableName = "Stampo.app"
             BlueprintName = "birdstagram"
             ReferencedContainer = "container:birdstagram.xcodeproj">
          </BuildableReference>
@@ -85,7 +78,8 @@
       buildConfiguration = "Debug">
    </AnalyzeAction>
    <ArchiveAction
-      buildConfiguration = "Release"
+      buildConfiguration = "Debug"
+      customArchiveName = "Stampo"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>

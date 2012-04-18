@@ -11,10 +11,9 @@
 			<string key="NS.object.0">933</string>
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
-			<string>IBUIButton</string>
-			<string>IBUIImageView</string>
-			<string>IBUIView</string>
 			<string>IBProxyObject</string>
+			<string>IBUIView</string>
+			<string>IBUIButton</string>
 		</array>
 		<array key="IBDocument.PluginDependencies">
 			<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -36,19 +35,35 @@
 				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">274</int>
 				<array class="NSMutableArray" key="NSSubviews">
-					<object class="IBUIButton" id="417058512">
+					<object class="IBUIView" id="587740786">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{224, 412}, {72, 37}}</string>
+						<string key="NSFrameSize">{320, 428}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
+						<reference key="NSNextKeyView" ref="275900254"/>
+						<object class="NSColor" key="IBUIBackgroundColor">
+							<int key="NSColorSpace">3</int>
+							<bytes key="NSWhite">MQA</bytes>
+							<object class="NSColorSpace" key="NSCustomColorSpace">
+								<int key="NSID">2</int>
+							</object>
+						</object>
+						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+					</object>
+					<object class="IBUIButton" id="64597776">
+						<reference key="NSNextResponder" ref="191373211"/>
+						<int key="NSvFlags">292</int>
+						<string key="NSFrame">{{83, 418}, {72, 37}}</string>
+						<reference key="NSSuperview" ref="191373211"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="417058512"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<int key="IBUIButtonType">1</int>
-						<string key="IBUINormalTitle">Confirm</string>
+						<string key="IBUINormalTitle">Add Bird</string>
 						<object class="NSColor" key="IBUIHighlightedTitleColor" id="239627145">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MQA</bytes>
@@ -65,7 +80,7 @@
 							<int key="type">2</int>
 							<double key="pointSize">15</double>
 						</object>
-						<object class="NSFont" key="IBUIFont" id="372367298">
+						<object class="NSFont" key="IBUIFont" id="605862270">
 							<string key="NSName">Helvetica-Bold</string>
 							<double key="NSSize">15</double>
 							<int key="NSfFlags">16</int>
@@ -74,10 +89,10 @@
 					<object class="IBUIButton" id="275900254">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{144, 412}, {72, 37}}</string>
+						<string key="NSFrame">{{5, 418}, {72, 37}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="417058512"/>
+						<reference key="NSNextKeyView" ref="64597776"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
@@ -91,35 +106,51 @@
 						</object>
 						<reference key="IBUINormalTitleShadowColor" ref="612714718"/>
 						<reference key="IBUIFontDescription" ref="650139575"/>
-						<reference key="IBUIFont" ref="372367298"/>
+						<reference key="IBUIFont" ref="605862270"/>
 					</object>
-					<object class="IBUIView" id="587740786">
+					<object class="IBUIButton" id="417058512">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<array class="NSMutableArray" key="NSSubviews">
-							<object class="IBUIImageView" id="457704929">
-								<reference key="NSNextResponder" ref="587740786"/>
-								<int key="NSvFlags">301</int>
-								<string key="NSFrame">{{41, 48}, {100, 70}}</string>
-								<reference key="NSSuperview" ref="587740786"/>
-								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="275900254"/>
-								<bool key="IBUIUserInteractionEnabled">NO</bool>
-								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-							</object>
-						</array>
-						<string key="NSFrame">{{6, 51}, {308, 308}}</string>
+						<string key="NSFrame">{{161, 418}, {91, 37}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="457704929"/>
-						<object class="NSColor" key="IBUIBackgroundColor">
-							<int key="NSColorSpace">3</int>
-							<bytes key="NSWhite">MQA</bytes>
-							<object class="NSColorSpace" key="NSCustomColorSpace">
-								<int key="NSID">2</int>
-							</object>
-						</object>
+						<reference key="NSNextKeyView" ref="847031632"/>
+						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+						<int key="IBUIContentHorizontalAlignment">0</int>
+						<int key="IBUIContentVerticalAlignment">0</int>
+						<int key="IBUIButtonType">1</int>
+						<string key="IBUINormalTitle">ToInstagram</string>
+						<reference key="IBUIHighlightedTitleColor" ref="239627145"/>
+						<object class="NSColor" key="IBUINormalTitleColor">
+							<int key="NSColorSpace">1</int>
+							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
+						</object>
+						<reference key="IBUINormalTitleShadowColor" ref="612714718"/>
+						<reference key="IBUIFontDescription" ref="650139575"/>
+						<reference key="IBUIFont" ref="605862270"/>
+					</object>
+					<object class="IBUIButton" id="847031632">
+						<reference key="NSNextResponder" ref="191373211"/>
+						<int key="NSvFlags">292</int>
+						<string key="NSFrame">{{256, 418}, {62, 37}}</string>
+						<reference key="NSSuperview" ref="191373211"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
+						<bool key="IBUIOpaque">NO</bool>
+						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+						<int key="IBUIContentHorizontalAlignment">0</int>
+						<int key="IBUIContentVerticalAlignment">0</int>
+						<int key="IBUIButtonType">1</int>
+						<string key="IBUINormalTitle">ToFile</string>
+						<reference key="IBUIHighlightedTitleColor" ref="239627145"/>
+						<object class="NSColor" key="IBUINormalTitleColor">
+							<int key="NSColorSpace">1</int>
+							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
+						</object>
+						<reference key="IBUINormalTitleShadowColor" ref="612714718"/>
+						<reference key="IBUIFontDescription" ref="650139575"/>
+						<reference key="IBUIFont" ref="605862270"/>
 					</object>
 				</array>
 				<string key="NSFrame">{{0, 20}, {320, 460}}</string>
@@ -153,21 +184,13 @@
 					<int key="connectionID">13</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">birdLayer</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="457704929"/>
-					</object>
-					<int key="connectionID">20</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">confirm:</string>
+						<string key="label">sendToInstagram:</string>
 						<reference key="source" ref="417058512"/>
 						<reference key="destination" ref="372490531"/>
 						<int key="IBEventType">7</int>
 					</object>
-					<int key="connectionID">6</int>
+					<int key="connectionID">25</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -179,12 +202,22 @@
 					<int key="connectionID">9</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">box</string>
-						<reference key="source" ref="587740786"/>
-						<reference key="destination" ref="457704929"/>
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">openBirdPanel:</string>
+						<reference key="source" ref="64597776"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">7</int>
 					</object>
-					<int key="connectionID">18</int>
+					<int key="connectionID">22</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">saveToAlbum:</string>
+						<reference key="source" ref="847031632"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">26</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -199,9 +232,11 @@
 						<int key="objectID">1</int>
 						<reference key="object" ref="191373211"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="417058512"/>
-							<reference ref="275900254"/>
 							<reference ref="587740786"/>
+							<reference ref="275900254"/>
+							<reference ref="64597776"/>
+							<reference ref="417058512"/>
+							<reference ref="847031632"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -229,15 +264,18 @@
 					<object class="IBObjectRecord">
 						<int key="objectID">11</int>
 						<reference key="object" ref="587740786"/>
-						<array class="NSMutableArray" key="children">
-							<reference ref="457704929"/>
-						</array>
+						<array class="NSMutableArray" key="children"/>
 						<reference key="parent" ref="191373211"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">17</int>
-						<reference key="object" ref="457704929"/>
-						<reference key="parent" ref="587740786"/>
+						<int key="objectID">21</int>
+						<reference key="object" ref="64597776"/>
+						<reference key="parent" ref="191373211"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">23</int>
+						<reference key="object" ref="847031632"/>
+						<reference key="parent" ref="191373211"/>
 					</object>
 				</array>
 			</object>
@@ -249,7 +287,8 @@
 				<string key="1.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="11.CustomClassName">UIBirdView</string>
 				<string key="11.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="17.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="21.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="23.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="5.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="8.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			</dictionary>
@@ -257,7 +296,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">20</int>
+			<int key="maxID">26</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -266,32 +305,49 @@
 					<string key="superclassName">UIViewController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
 						<string key="cancel:">id</string>
-						<string key="confirm:">id</string>
+						<string key="closeBirdPanel:">id</string>
+						<string key="openBirdPanel:">id</string>
+						<string key="saveToAlbum:">id</string>
+						<string key="sendToInstagram:">id</string>
+						<string key="toggleBirdPanel:">UIGestureRecognizer</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
 						<object class="IBActionInfo" key="cancel:">
 							<string key="name">cancel:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-						<object class="IBActionInfo" key="confirm:">
-							<string key="name">confirm:</string>
+						<object class="IBActionInfo" key="closeBirdPanel:">
+							<string key="name">closeBirdPanel:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="birdLayer">UIImageView</string>
-						<string key="previewLayer">UIView</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="birdLayer">
-							<string key="name">birdLayer</string>
-							<string key="candidateClassName">UIImageView</string>
+						<object class="IBActionInfo" key="openBirdPanel:">
+							<string key="name">openBirdPanel:</string>
+							<string key="candidateClassName">id</string>
 						</object>
-						<object class="IBToOneOutletInfo" key="previewLayer">
+						<object class="IBActionInfo" key="saveToAlbum:">
+							<string key="name">saveToAlbum:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="sendToInstagram:">
+							<string key="name">sendToInstagram:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="toggleBirdPanel:">
+							<string key="name">toggleBirdPanel:</string>
+							<string key="candidateClassName">UIGestureRecognizer</string>
+						</object>
+					</dictionary>
+					<object class="NSMutableDictionary" key="outlets">
+						<string key="NS.key.0">previewLayer</string>
+						<string key="NS.object.0">UIBirdView</string>
+					</object>
+					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<string key="NS.key.0">previewLayer</string>
+						<object class="IBToOneOutletInfo" key="NS.object.0">
 							<string key="name">previewLayer</string>
-							<string key="candidateClassName">UIView</string>
+							<string key="candidateClassName">UIBirdView</string>
 						</object>
-					</dictionary>
+					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">./Classes/PreviewController.h</string>
@@ -300,17 +356,20 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">UIBirdView</string>
 					<string key="superclassName">UIPreview</string>
-					<object class="NSMutableDictionary" key="outlets">
-						<string key="NS.key.0">box</string>
-						<string key="NS.object.0">UIView</string>
-					</object>
-					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<string key="NS.key.0">box</string>
-						<object class="IBToOneOutletInfo" key="NS.object.0">
-							<string key="name">box</string>
-							<string key="candidateClassName">UIView</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="showBirdOption:">UIGestureRecognizer</string>
+						<string key="tapBird:">UIGestureRecognizer</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="showBirdOption:">
+							<string key="name">showBirdOption:</string>
+							<string key="candidateClassName">UIGestureRecognizer</string>
 						</object>
-					</object>
+						<object class="IBActionInfo" key="tapBird:">
+							<string key="name">tapBird:</string>
+							<string key="candidateClassName">UIGestureRecognizer</string>
+						</object>
+					</dictionary>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">./Classes/UIBirdView.h</string>

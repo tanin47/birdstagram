@@ -57,6 +57,7 @@ static MenuController *sharedInstance = nil;
     if (imageHandler == nil) 
         imageHandler = [[ImageHandler alloc] initWithSelector:@selector(previewPhoto) 
                                                     AndTarget:self];
+    
 }
 
 - (void)viewDidUnload
@@ -78,22 +79,19 @@ static MenuController *sharedInstance = nil;
 }
 
 
-//- (IBAction) getPhoto: (id) sender
-//{
-//    //[self.navigationController pushViewController:[CameraController singleton] animated:NO];
-//    [imageHandler openActionSheet];
-//}
-//
-//
-//-(void) previewPhoto
-//{
-//    if (imageHandler.image == nil) return;
-//    
-//    [PreviewController singleton].photo = [ImageHandler scaleToInstagramWithImage:imageHandler.image];
-//    [imageHandler clear];
-//    [self.navigationController pushViewController:[PreviewController singleton] animated:NO];
-//    
-//    
-//}
+- (IBAction) openAlbum: (id) sender
+{
+    [imageHandler selectPicture];
+}
+
+
+-(void) previewPhoto
+{
+    if (imageHandler.image == nil) return;
+    
+    [PreviewController singleton].photo = imageHandler.image;
+    [imageHandler clear];
+    [self.navigationController pushViewController:[PreviewController singleton] animated:NO];
+}
 
 @end

@@ -20,6 +20,7 @@
 	AVCaptureSession *captureSession;
 	AVCaptureDeviceInput *videoInput;
 	AVCaptureVideoDataOutput *videoOutput;
+    AVCaptureStillImageOutput *stillImageOutput;
     
     BOOL isRunning;
 }
@@ -29,6 +30,7 @@
 
 - (void) start;
 - (void) stop;
+- (void) captureAndOnDone: (void(^)(UIImage *)) callback;
 
 @end
 

@@ -101,17 +101,47 @@ static CameraController *sharedInstance = nil;
 {
     DLog(@"");
     [super viewDidDisappear:animated];
-    //[self.camera stop];
+    [self.camera stop];
     [self.camera.videoPreviewLayer removeFromSuperlayer];
 }
 
 
 - (IBAction) capturePhoto: (id) sender
 {
+    
+    
     capturePhotoNow = YES;
     [self.camera captureAndOnDone:^(UIImage *image) {
-        [PreviewController singleton].photo = image;
-        [self.navigationController pushViewController:[PreviewController singleton] animated:NO];
+        
+        if (image.size.width > 1200 || image.size.height > 1200)
+        {
+            CGFloat targetWidth = 1200;
+            CGFloat targetHeight = 1200;
+            
+            if (image.size.width < image.size.height)
+            {
+                targetWidth = (targetHeight * image.size.width / image.size.height);
+            }
+            else
+            {
+                targetHeight = (targetWidth * image.size.height / image.size.width);
+            }
+            
+            image = [ImageHandler imageWithImage:image
+                                    scaledToSize:CGSizeMake(targetWidth, targetHeight)];
+        }
+            
+        
+        NSString  *path = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/stampo_temp.jpg"];
+        [UIImageJPEGRepresentation(image, 1.0) writeToFile:path atomically:YES];
+        [PreviewController singleton].photoPath = path;
+        
+        
+        dispatch_async( dispatch_get_main_queue(), ^{
+            [DSBezelActivityView removeViewAnimated:YES];
+            [self.navigationController pushViewController:[PreviewController singleton] animated:NO];
+        });
+        
     }];
 }
 
@@ -162,6 +192,7 @@ UIImage* rotate(UIImage* src, UIImageOrientation orientation)
         [self.previewLayer.layer setContents:(id)image.CGImage];
         
         capturePhotoNow = NO;
+        [DSBezelActivityView newActivityViewForView:self.view.window withLabel:@"Processing..."];        
     }
 }
 

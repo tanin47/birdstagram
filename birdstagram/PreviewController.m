@@ -9,8 +9,8 @@
 #import "PreviewController.h"
 #import <QuartzCore/QuartzCore.h>
 #include <math.h>
-#import "BirdCell.h"
 #import "BirdOverlay.h"
+#import "Bird.h"
 
 static PreviewController *sharedInstance = nil;
 
@@ -30,7 +30,7 @@ static PreviewController *sharedInstance = nil;
 
 @synthesize birdPanel;
 
-@synthesize photo;
+@synthesize photoPath;
 @synthesize previewLayer;
 
 @synthesize instagram;
@@ -47,7 +47,7 @@ static PreviewController *sharedInstance = nil;
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
- 
+
         
     }
     return self;
@@ -63,7 +63,7 @@ static PreviewController *sharedInstance = nil;
 
 - (void) dealloc
 {
-    self.photo = nil;
+    self.photoPath = nil;
     self.instagram = nil;
     
     [super dealloc];
@@ -76,12 +76,12 @@ static PreviewController *sharedInstance = nil;
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    UIHorizontalTableView *horizontalTmp = [[UIHorizontalTableView alloc] initWithFrame:CGRectMake(0, -50, 320, 50)];
+    UIBirdPanel *birdPanelTmp = [[UIBirdPanel alloc] initWithFrame:CGRectMake(0, -70, 320, 70)];
     
-    self.birdPanel = horizontalTmp;
-    [horizontalTmp release];
+    self.birdPanel = birdPanelTmp;
+    [birdPanelTmp release];
     
-    self.birdPanel.horizontalDelegate = self;
+    self.birdPanel.birdDelegate = self;
     [self.view addSubview:self.birdPanel];
 }
 
@@ -90,6 +90,9 @@ static PreviewController *sharedInstance = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+    
+    [self.birdPanel removeFromSuperview];
+    self.birdPanel = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -103,7 +106,13 @@ static PreviewController *sharedInstance = nil;
 {
     [super viewDidAppear:animated];
     
-    self.previewLayer.backgroundColor = [UIColor colorWithPatternImage:[ImageHandler imageWithImage:self.photo scaledToSize:CGSizeMake(self.previewLayer.frame.size.width, self.previewLayer.frame.size.height)]]; 
+    UIImage *photo = [[UIImage alloc] initWithContentsOfFile:self.photoPath];
+    
+    DLog(@"%f %f", photo.size.width, photo.size.height);
+    
+    self.previewLayer.backgroundColor = [UIColor colorWithPatternImage:[ImageHandler imageWithImage:photo scaledToSize:CGSizeMake(self.previewLayer.frame.size.width, self.previewLayer.frame.size.height)]]; 
+    
+    [photo release];
     
     [self openBirdPanel:nil];
 }
@@ -120,18 +129,30 @@ static PreviewController *sharedInstance = nil;
 
 - (UIImage *) getFinalImage
 {
-    UIGraphicsBeginImageContextWithOptions(self.photo.size, YES, 0);
+    UIImage *photo = [[UIImage alloc] initWithContentsOfFile:self.photoPath];
+    
+    DLog(@"Write to size: %f %f", photo.size.width, photo.size.height);
+    
+    UIGraphicsBeginImageContextWithOptions(photo.size, YES, 0);
     CGContextRef context = UIGraphicsGetCurrentContext();
     
-    [self.photo drawInRect:CGRectMake(0, 0, self.photo.size.width, self.photo.size.height)];
+    [photo drawInRect:CGRectMake(0, 0, photo.size.width, photo.size.height)];
     
+    CGFloat scaleX = photo.size.width / self.previewLayer.frame.size.width;
+    CGFloat scaleY = photo.size.height / self.previewLayer.frame.size.height;
     
-    CGFloat scaleX = self.photo.size.width / self.previewLayer.frame.size.width;
-    CGFloat scaleY = self.photo.size.height / self.previewLayer.frame.size.height;
+    [photo release];
+    
     
     DLog(@"birds %d", [self.previewLayer.birds count]);
     
     for (BirdOverlay *bird in self.previewLayer.birds) {
+        
+        
+        NSString * resourcePath = [[NSBundle mainBundle] resourcePath];
+        NSString * birdPath = [resourcePath stringByAppendingPathComponent:bird.originalBirdPath];
+        
+        UIImage *image = [[UIImage alloc] initWithContentsOfFile:birdPath];
         
         CGRect rect = CGRectMake(bird.frame.origin.x * scaleX, 
                                  bird.frame.origin.y * scaleY, 
@@ -141,14 +162,16 @@ static PreviewController *sharedInstance = nil;
         
         CGContextTranslateCTM(context, (rect.origin.x + rect.size.width/2.0), (rect.origin.y + rect.size.height/2.0));
         
-        CGFloat thisScaleX = scaleX * bird.originalBirdSize.width / bird.originalBird.size.width;
-        CGFloat thisScaleY = scaleY * bird.originalBirdSize.height / bird.originalBird.size.height;
+        CGFloat thisScaleX = scaleX * bird.frame.size.width / image.size.width;
+        CGFloat thisScaleY = scaleY * bird.frame.size.height / image.size.height;
         
         CGContextScaleCTM(context, thisScaleX, thisScaleY);
         CGContextConcatCTM(context, bird.transform);
         
         
-        [bird.originalBird drawAtPoint:CGPointMake(-bird.originalBird.size.width/2.0, -bird.originalBird.size.height/2.0)];
+        [image drawAtPoint:CGPointMake(-image.size.width/2.0, -image.size.height/2.0)];
+        
+        [image release];
         
         CGContextConcatCTM(context, CGAffineTransformInvert(bird.transform));
         CGContextScaleCTM(context, 1.0 / thisScaleX, 1.0 / thisScaleY);
@@ -188,7 +211,12 @@ static PreviewController *sharedInstance = nil;
     [DSBezelActivityView newActivityViewForView:self.view.window withLabel:@"Saving to the album..."];
     
     dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-        UIImageWriteToSavedPhotosAlbum([self getFinalImage], self, @selector(thisImage:hasBeenSavedInPhotoAlbumWithError:usingContextInfo:), nil);
+        
+        UIImage *image = [self getFinalImage];
+        
+        image = [ImageHandler imageWithImage:image scaledToSize:CGSizeMake(image.size.width,image.size.height)];
+        
+        UIImageWriteToSavedPhotosAlbum(image, self, @selector(thisImage:hasBeenSavedInPhotoAlbumWithError:usingContextInfo:), nil);
     });
 }
 
@@ -208,6 +236,7 @@ static PreviewController *sharedInstance = nil;
         return;
     }
     
+    DLog(@"finalize size: %f %f", image.size.width, image.size.height);
     [self.navigationController popToRootViewControllerAnimated:NO];
 }
 
@@ -216,11 +245,11 @@ static PreviewController *sharedInstance = nil;
 - (IBAction) cancel: (id) sender
 {
     DLog(@"");
-    [self.navigationController popViewControllerAnimated:NO];
+    [self.navigationController popToRootViewControllerAnimated:NO];
 }
 
 
-- (IBAction) toggleBirdPanel: (UIGestureRecognizer *) recognizer
+- (IBAction) toggleBirdPanel: (id) sender
 {
     if (self.birdPanel.hidden == YES) {
         [self openBirdPanel:nil];
@@ -234,7 +263,7 @@ static PreviewController *sharedInstance = nil;
 {
     self.birdPanel.hidden = NO;
     [UIView animateWithDuration:0.3 animations:^{
-        self.birdPanel.frame = CGRectMake(0, 0, 320, 50);
+        self.birdPanel.frame = CGRectMake(0, 0, 320, 70);
     } completion:^ (BOOL finished){
         self.birdPanel.hidden = NO;
     }];
@@ -245,7 +274,7 @@ static PreviewController *sharedInstance = nil;
 {
     self.birdPanel.hidden = NO;
     [UIView animateWithDuration:0.3 animations:^{
-        self.birdPanel.frame = CGRectMake(0, -50, 320, 50);
+        self.birdPanel.frame = CGRectMake(0, -70, 320, 70);
     } completion:^ (BOOL finished){
         self.birdPanel.hidden = YES;
     }];
@@ -267,40 +296,16 @@ static PreviewController *sharedInstance = nil;
 }
 
 
-- (void) tableView: (UIHorizontalTableView *) tableView didSelectColumnAt: (int) columnIndex
+- (void) birdPanel: (UIBirdPanel *) birdPanel didSelectBird: (Bird *) bird
 {
-    BirdOverlay *bird = [[BirdOverlay alloc] initWithFrame:CGRectMake(0, 0, 150, 150)];
+    BirdOverlay *birdOverlay = [[BirdOverlay alloc] initWithFrame:CGRectMake(0, 0, 150, 150)];
     
-    bird.originalBird = [UIImage imageNamed:@"bird.png"];
-    [bird setHighlightedBird:[UIImage imageNamed:@"bird_selected.png"]];
+    birdOverlay.originalBirdPath = bird.originalImagePath;
     
-    [self.previewLayer addBird:bird];
+    [self.previewLayer addBird:birdOverlay];
     
-    [bird release];
+    [birdOverlay release];
     [self closeBirdPanel:nil];
-}
-
-- (CGFloat) tableViewWidthForColumn: (UIHorizontalTableView *) tableView
-{
-    return 50;
-}
-
-- (NSInteger) numberOfColumns: (UIHorizontalTableView *) tableView
-{
-    return 20;
-}
-
-- (UIView *) tableView: (UIHorizontalTableView *) tableView cellForColumnAt: (int) columnIndex
-{
-    BirdCell *cell = (BirdCell *)[self.birdPanel dequeueReusableCell];
-    
-    if (cell == nil) {
-        cell = [[[BirdCell alloc] init] autorelease];
-    }
-    
-    cell.birdImage.image = [UIImage imageNamed:@"bird.png"];
-    
-    return cell;
 }
 
 

@@ -28,6 +28,7 @@
 @interface UIHorizontalTableView : UIScrollView<UIScrollViewDelegate> {
     NSInteger numberOfColumns;
     CGFloat widthOfCell;
+    BOOL alreadyInit;
 }
 
 @property (nonatomic, retain) IBOutlet id<UIHorizontalTableViewDelegate> horizontalDelegate;

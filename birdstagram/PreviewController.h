@@ -7,14 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UIBirdPanel.h"
 
-@interface PreviewController : UIViewController<UIDocumentInteractionControllerDelegate, UIHorizontalTableViewDelegate>
+@interface PreviewController : UIViewController<UIDocumentInteractionControllerDelegate, UIBirdPanelDelegate>
 
-@property (nonatomic, retain) UIImage *photo;
+@property (nonatomic, retain) NSString *photoPath;
 
 @property (nonatomic, retain) IBOutlet UIBirdView *previewLayer;
 
-@property (nonatomic, retain) UIHorizontalTableView *birdPanel;
+@property (nonatomic, retain) UIBirdPanel *birdPanel;
 
 @property (nonatomic, retain) UIDocumentInteractionController *instagram;
 
@@ -31,7 +32,7 @@
 - (IBAction) saveToAlbum: (id) sender;
 - (IBAction) cancel: (id) sender;
 
-- (IBAction) toggleBirdPanel: (UIGestureRecognizer *) recognizer;
+- (IBAction) toggleBirdPanel: (id) sender;
 - (IBAction) openBirdPanel: (id) sender;
 - (IBAction) closeBirdPanel: (id) sender;
 

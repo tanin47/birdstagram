@@ -52,6 +52,16 @@
 }
 
 
+
+- (void) dealloc
+{
+    self.horizontalDelegate = nil;
+    self.cells = nil;
+    
+    [super dealloc];
+}
+
+
 - (UIView *) dequeueReusableCell
 {
     return nil;
@@ -68,6 +78,9 @@
 - (void) didMoveToWindow
 {
     [super didMoveToWindow];
+    
+    if (alreadyInit == YES) return;
+    alreadyInit = YES;
     
     NSLog(@"%@", self.horizontalDelegate);
     numberOfColumns = [self.horizontalDelegate numberOfColumns:self];

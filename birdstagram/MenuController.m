@@ -89,9 +89,23 @@ static MenuController *sharedInstance = nil;
 {
     if (imageHandler.image == nil) return;
     
-    [PreviewController singleton].photo = imageHandler.image;
-    [imageHandler clear];
-    [self.navigationController pushViewController:[PreviewController singleton] animated:NO];
+    DLog(@"First size: %f %f", imageHandler.image.size.width, imageHandler.image.size.height);
+    
+    [DSBezelActivityView newActivityViewForView:self.view.window withLabel:@"Processing..."];
+    
+    dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        
+        NSString  *path = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/stampo_temp.jpg"];
+        [UIImageJPEGRepresentation(imageHandler.image, 1.0) writeToFile:path atomically:YES];
+        [PreviewController singleton].photoPath = path;
+
+        [imageHandler clear];
+        
+        dispatch_async( dispatch_get_main_queue(), ^{
+            [DSBezelActivityView removeViewAnimated:YES];
+            [self.navigationController pushViewController:[PreviewController singleton] animated:NO];
+        });
+    });
 }
 
 @end

@@ -22,10 +22,9 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Initialize all the shits
-    //[CameraController singleton];
-    //[PreviewController singleton];
-    //[MenuController singleton];
-    
+    [CameraController singleton];
+    [PreviewController singleton];
+    [MenuController singleton];
     
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     // Override point for customization after application launch.

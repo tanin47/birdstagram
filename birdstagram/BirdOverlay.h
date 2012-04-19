@@ -11,10 +11,8 @@
 @interface BirdOverlay : UIControl
 
 @property (nonatomic, retain) UIImageView *birdImageView;
-@property (nonatomic, retain) UIImage *originalBird;
-@property CGSize originalBirdSize;
+@property (nonatomic, retain) NSString *originalBirdPath;
 
-- (void) setHighlightedBird: (UIImage *) image;
 - (void) setup;
 
 @end

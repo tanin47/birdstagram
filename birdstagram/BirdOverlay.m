@@ -12,13 +12,27 @@
 
 
 @synthesize birdImageView;
-@synthesize originalBird;
-@synthesize originalBirdSize;
+@synthesize originalBirdPath;
 
 - (void) setSelected:(BOOL)newOne {
     [super setSelected:newOne];
     
-    birdImageView.highlighted = newOne;
+    if (self.selected == YES) {
+        
+        [UIView animateWithDuration:0.05 
+                              delay:0.0 
+                            options:(UIViewAnimationOptionRepeat | UIViewAnimationOptionAutoreverse) 
+                         animations:^{
+                             [UIView setAnimationRepeatCount:3.0];
+                             self.birdImageView.alpha = 0.0;
+                         }
+                         completion:^(BOOL finished){
+                             self.birdImageView.alpha = 1.0;
+                         }];
+
+
+    }
+    
 }
 
 
@@ -50,31 +64,15 @@
 }
 
 
-- (void) setOriginalBird:(UIImage *)newBird {
+- (void) setOriginalBirdPath: (NSString *) path {
     
-    [originalBird release];
-    originalBird = [newBird retain];
+    [originalBirdPath release];
+    originalBirdPath = [path retain];
     
+    NSString * resourcePath = [[NSBundle mainBundle] resourcePath];
+    NSString * birdPath = [resourcePath stringByAppendingPathComponent:path];
     
-    int maxWidth = 150;
-    int maxHeight = 150;
-    
-    int newWidth = originalBird.size.width;
-    int newHeight = originalBird.size.height;
-    
-    if (newWidth > maxWidth || newHeight > maxHeight) {
-        
-        newHeight = maxHeight;
-        newWidth = originalBird.size.width * newHeight / originalBird.size.height;
-        
-        if (newWidth > maxWidth) {
-            newWidth = maxWidth;
-            newHeight = originalBird.size.height * newWidth / originalBird.size.width;
-        }
-        
-    }
-    
-    self.originalBirdSize = CGSizeMake(newWidth, newHeight);
+    UIImage *image = [[UIImage alloc] initWithContentsOfFile:birdPath];
     
     if (self.birdImageView == nil) {
         UIImageView *v = [[UIImageView alloc] initWithFrame:self.frame];
@@ -83,12 +81,9 @@
         [v release];
     }
     
-    self.birdImageView.image = originalBird;
+    self.birdImageView.image = image;
+    [image release];
 }
 
-
-- (void) setHighlightedBird: (UIImage *) image {
-    self.birdImageView.highlightedImage = image;
-}
 
 @end

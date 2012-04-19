@@ -32,12 +32,14 @@
 		F2C1190F153C153200552A66 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2C1190D153C153100552A66 /* AVFoundation.framework */; };
 		F2C11910153C153200552A66 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2C1190E153C153100552A66 /* CoreMedia.framework */; };
 		F2C11914153C157A00552A66 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2C11913153C157A00552A66 /* CoreVideo.framework */; };
-		F2C5EB1B153EABA000B5EAD6 /* bird.png in Resources */ = {isa = PBXBuildFile; fileRef = F2C5EB1A153EABA000B5EAD6 /* bird.png */; };
 		F2C5EB62153ECA2F00B5EAD6 /* UIHorizontalTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = F2C5EB60153ECA2D00B5EAD6 /* UIHorizontalTableView.m */; };
 		F2C5EB66153ECC9800B5EAD6 /* BirdCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F2C5EB65153ECC9700B5EAD6 /* BirdCell.m */; };
 		F2C5EB68153ECD4100B5EAD6 /* BirdCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F2C5EB67153ECD4000B5EAD6 /* BirdCell.xib */; };
 		F2C5EB6B153ED28600B5EAD6 /* BirdOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = F2C5EB6A153ED28500B5EAD6 /* BirdOverlay.m */; };
-		F2C5EB6D153ED8B200B5EAD6 /* bird_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = F2C5EB6C153ED8B200B5EAD6 /* bird_selected.png */; };
+		F2D3F61B153F91B5005BE7D3 /* Birds in Resources */ = {isa = PBXBuildFile; fileRef = F2D3F61A153F91B5005BE7D3 /* Birds */; };
+		F2D3F61D153F94AA005BE7D3 /* blank_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = F2D3F61C153F94AA005BE7D3 /* blank_icon.png */; };
+		F2D3F620153F961F005BE7D3 /* UIBirdPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = F2D3F61F153F961F005BE7D3 /* UIBirdPanel.m */; };
+		F2D3F623153F98DA005BE7D3 /* Bird.m in Sources */ = {isa = PBXBuildFile; fileRef = F2D3F622153F98DA005BE7D3 /* Bird.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -80,7 +82,6 @@
 		F2C1190D153C153100552A66 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		F2C1190E153C153100552A66 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		F2C11913153C157A00552A66 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
-		F2C5EB1A153EABA000B5EAD6 /* bird.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bird.png; path = Birds/bird.png; sourceTree = "<group>"; };
 		F2C5EB60153ECA2D00B5EAD6 /* UIHorizontalTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIHorizontalTableView.m; path = UIHorizontalTableView/UIHorizontalTableView.m; sourceTree = "<group>"; };
 		F2C5EB61153ECA2E00B5EAD6 /* UIHorizontalTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIHorizontalTableView.h; path = UIHorizontalTableView/UIHorizontalTableView.h; sourceTree = "<group>"; };
 		F2C5EB64153ECC9600B5EAD6 /* BirdCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BirdCell.h; sourceTree = "<group>"; };
@@ -88,7 +89,12 @@
 		F2C5EB67153ECD4000B5EAD6 /* BirdCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BirdCell.xib; sourceTree = "<group>"; };
 		F2C5EB69153ED28400B5EAD6 /* BirdOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BirdOverlay.h; sourceTree = "<group>"; };
 		F2C5EB6A153ED28500B5EAD6 /* BirdOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BirdOverlay.m; sourceTree = "<group>"; };
-		F2C5EB6C153ED8B200B5EAD6 /* bird_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bird_selected.png; path = Birds/bird_selected.png; sourceTree = "<group>"; };
+		F2D3F61A153F91B5005BE7D3 /* Birds */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Birds; sourceTree = "<group>"; };
+		F2D3F61C153F94AA005BE7D3 /* blank_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blank_icon.png; sourceTree = "<group>"; };
+		F2D3F61E153F961F005BE7D3 /* UIBirdPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIBirdPanel.h; sourceTree = "<group>"; };
+		F2D3F61F153F961F005BE7D3 /* UIBirdPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIBirdPanel.m; sourceTree = "<group>"; };
+		F2D3F621153F98DA005BE7D3 /* Bird.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bird.h; sourceTree = "<group>"; };
+		F2D3F622153F98DA005BE7D3 /* Bird.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Bird.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +118,7 @@
 		F245D5AF153D03FC00F17E84 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				F2D3F61C153F94AA005BE7D3 /* blank_icon.png */,
 				F245D5B0153D043200F17E84 /* shutter_closed.png */,
 			);
 			name = Images;
@@ -151,17 +158,21 @@
 		F246D54E153B998C00587988 /* birdstagram */ = {
 			isa = PBXGroup;
 			children = (
+				F2D3F61A153F91B5005BE7D3 /* Birds */,
 				F2C5EB63153ECA3300B5EAD6 /* UIHorizontalTableView */,
 				F245D5AF153D03FC00F17E84 /* Images */,
 				F2C1190A153C13F300552A66 /* GLCamera.h */,
 				F2C1190B153C13F300552A66 /* GLCamera.m */,
-				F246D58B153BC71300587988 /* Birds */,
 				F246D579153B9BB300587988 /* Core */,
 				F246D557153B998C00587988 /* AppDelegate.h */,
 				F246D558153B998C00587988 /* AppDelegate.m */,
+				F2D3F621153F98DA005BE7D3 /* Bird.h */,
+				F2D3F622153F98DA005BE7D3 /* Bird.m */,
 				F2C5EB64153ECC9600B5EAD6 /* BirdCell.h */,
 				F2C5EB65153ECC9700B5EAD6 /* BirdCell.m */,
 				F2C5EB67153ECD4000B5EAD6 /* BirdCell.xib */,
+				F2D3F61E153F961F005BE7D3 /* UIBirdPanel.h */,
+				F2D3F61F153F961F005BE7D3 /* UIBirdPanel.m */,
 				F246D57D153B9DBF00587988 /* PreviewController.h */,
 				F246D57E153B9DBF00587988 /* PreviewController.m */,
 				F246D57F153B9DBF00587988 /* PreviewController.xib */,
@@ -207,15 +218,6 @@
 				F245D5A9153CF2A000F17E84 /* InstagramConnector.m */,
 			);
 			name = Core;
-			sourceTree = "<group>";
-		};
-		F246D58B153BC71300587988 /* Birds */ = {
-			isa = PBXGroup;
-			children = (
-				F2C5EB6C153ED8B200B5EAD6 /* bird_selected.png */,
-				F2C5EB1A153EABA000B5EAD6 /* bird.png */,
-			);
-			name = Birds;
 			sourceTree = "<group>";
 		};
 		F2C5EB63153ECA3300B5EAD6 /* UIHorizontalTableView */ = {
@@ -283,9 +285,9 @@
 				F246D581153B9DC000587988 /* PreviewController.xib in Resources */,
 				F2C11905153C128B00552A66 /* CameraController.xib in Resources */,
 				F245D5B1153D043200F17E84 /* shutter_closed.png in Resources */,
-				F2C5EB1B153EABA000B5EAD6 /* bird.png in Resources */,
 				F2C5EB68153ECD4100B5EAD6 /* BirdCell.xib in Resources */,
-				F2C5EB6D153ED8B200B5EAD6 /* bird_selected.png in Resources */,
+				F2D3F61B153F91B5005BE7D3 /* Birds in Resources */,
+				F2D3F61D153F94AA005BE7D3 /* blank_icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -311,6 +313,8 @@
 				F2C5EB62153ECA2F00B5EAD6 /* UIHorizontalTableView.m in Sources */,
 				F2C5EB66153ECC9800B5EAD6 /* BirdCell.m in Sources */,
 				F2C5EB6B153ED28600B5EAD6 /* BirdOverlay.m in Sources */,
+				F2D3F620153F961F005BE7D3 /* UIBirdPanel.m in Sources */,
+				F2D3F623153F98DA005BE7D3 /* Bird.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

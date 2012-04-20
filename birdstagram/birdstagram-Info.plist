@@ -13,17 +13,17 @@
 	<key>CFBundleIdentifier</key>
 	<string>kejuliso.studiostampo</string>
 	<key>CFBundleInfoDictionaryVersion</key>
-	<string>6.0.2</string>
+	<string>6.0.3</string>
 	<key>CFBundleName</key>
 	<string>${PRODUCT_NAME}</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0.2</string>
+	<string>1.0.3</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1.0.2</string>
+	<string>1.0.3</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UIRequiredDeviceCapabilities</key>

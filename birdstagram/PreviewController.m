@@ -83,6 +83,8 @@ static PreviewController *sharedInstance = nil;
     
     self.birdPanel.birdDelegate = self;
     [self.view addSubview:self.birdPanel];
+    
+    [self.birdPanel reloadData];
 }
 
 - (void)viewDidUnload
@@ -148,11 +150,7 @@ static PreviewController *sharedInstance = nil;
     
     for (BirdOverlay *bird in self.previewLayer.birds) {
         
-        
-        NSString * resourcePath = [[NSBundle mainBundle] resourcePath];
-        NSString * birdPath = [resourcePath stringByAppendingPathComponent:bird.originalBirdPath];
-        
-        UIImage *image = [[UIImage alloc] initWithContentsOfFile:birdPath];
+        UIImage *image = [[UIImage alloc] initWithContentsOfFile:bird.originalBirdPath];
         
         CGRect rect = CGRectMake(bird.frame.origin.x * scaleX, 
                                  bird.frame.origin.y * scaleY, 

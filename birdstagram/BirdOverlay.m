@@ -69,10 +69,26 @@
     [originalBirdPath release];
     originalBirdPath = [path retain];
     
-    NSString * resourcePath = [[NSBundle mainBundle] resourcePath];
-    NSString * birdPath = [resourcePath stringByAppendingPathComponent:path];
+    UIImage *image = [[UIImage alloc] initWithContentsOfFile:path];
     
-    UIImage *image = [[UIImage alloc] initWithContentsOfFile:birdPath];
+    CGFloat targetWidth = image.size.width;
+    CGFloat targetHeight = image.size.height;
+    
+    if (targetWidth > 150 || targetHeight > 150)
+    {
+        if (image.size.width < image.size.height)
+        {
+            targetHeight = 150;
+            targetWidth = (targetHeight * image.size.width / image.size.height);
+        }
+        else
+        {
+            targetWidth = 150;
+            targetHeight = (targetWidth * image.size.height / image.size.width);
+        }
+    }
+    
+    self.frame = CGRectMake(0, 0, targetWidth, targetHeight);
     
     if (self.birdImageView == nil) {
         UIImageView *v = [[UIImageView alloc] initWithFrame:self.frame];
@@ -80,6 +96,8 @@
         [self addSubview:v];
         [v release];
     }
+    
+    self.birdImageView.frame = self.frame;
     
     self.birdImageView.image = image;
     [image release];

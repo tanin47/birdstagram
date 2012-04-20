@@ -75,23 +75,19 @@
 
 
 //- (void) didMoveToSuperview
-- (void) didMoveToWindow
+- (void) reloadData
 {
-    [super didMoveToWindow];
+    for (UIView *v in self.subviews) {
+        [v removeFromSuperview];
+    }
     
-    if (alreadyInit == YES) return;
-    alreadyInit = YES;
     
-    NSLog(@"%@", self.horizontalDelegate);
     numberOfColumns = [self.horizontalDelegate numberOfColumns:self];
     
     widthOfCell = [self.horizontalDelegate tableViewWidthForColumn:self];
     CGFloat sumWidth = [self.horizontalDelegate tableViewWidthForColumn:self] * numberOfColumns;
     
     self.contentSize = CGSizeMake(sumWidth, self.frame.size.height);
-    
-    NSLog(@"contentWidth = %f", sumWidth);
-    NSLog(@"frameWidth = %f", self.frame.size.width);
     
     
     for (int i=0;i<numberOfColumns;i++) {

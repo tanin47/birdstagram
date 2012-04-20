@@ -38,4 +38,6 @@
 - (UIView *) dequeueReusableCell;
 - (IBAction) cellClicked: (UIGestureRecognizer *) recognizer;
 
+- (void) reloadData;
+
 @end

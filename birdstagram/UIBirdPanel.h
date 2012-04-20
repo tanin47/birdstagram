@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "Bird.h"
+#import "LoadMoreCell.h"
+
 
 @class UIBirdPanel;
-
-
 
 @protocol UIBirdPanelDelegate
 
@@ -23,9 +23,15 @@
 
 @interface UIBirdPanel : UIHorizontalTableView<UIHorizontalTableViewDelegate>
 
-@property (nonatomic, retain) NSMutableArray *birds;
+@property (nonatomic, retain) NSString *baseUrl;
+@property (nonatomic, retain) NSString *listUrl;
+@property (nonatomic, retain) NSMutableArray *localBirds;
+@property (nonatomic, retain) NSMutableArray *remoteBirds;
 @property (nonatomic, retain) id<UIBirdPanelDelegate> birdDelegate;
+@property (nonatomic, retain) LoadMoreCell *loadMoreCell;
 
 - (void) setupBirds;
+- (void) loadMore;
+- (void) ensureDir: (NSString *) path;
 
 @end

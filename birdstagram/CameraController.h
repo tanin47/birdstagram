@@ -19,7 +19,9 @@
 
 
 - (UIImage *) processNewCameraFrameWithC: (CVImageBufferRef) cameraFrame;
+
 - (IBAction) capturePhoto: (id) sender;
+- (IBAction) back: (id) sender;
 
 
 + (CameraController *) singleton;

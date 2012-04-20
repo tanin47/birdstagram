@@ -146,6 +146,11 @@ static CameraController *sharedInstance = nil;
 }
 
 
+- (IBAction) back: (id) sender
+{
+    [self.navigationController popToRootViewControllerAnimated:NO];
+}
+
 #pragma mark -
 #pragma mark ColorTrackingCameraDelegate methods
 

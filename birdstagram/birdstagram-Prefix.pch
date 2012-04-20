@@ -22,6 +22,9 @@
     #import <Foundation/Foundation.h>
 #endif
 
+#import "JSON.h"
+#import "ASIHTTPRequest.h"
+
 #import "UIHorizontalTableView.h"
 
 #import "DSActivityView.h"
